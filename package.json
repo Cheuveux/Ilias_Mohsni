@@ -1,0 +1,24 @@
+{
+  "name": "ilias_mohsni",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cheuveux/Ilias_Mohsni.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Cheuveux/Ilias_Mohsni/issues"
+  },
+  "homepage": "https://github.com/Cheuveux/Ilias_Mohsni#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

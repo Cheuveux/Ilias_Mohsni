@@ -1,0 +1,23 @@
+.about-description {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    font-size: 1rem;
+    color: rgb(222, 221, 201);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 70vw;
+    gap: 15px;
+}
+
+@media screen and (max-width:600px) {
+    .about-description {
+        font-size: .8rem;
+        font-weight: 600;
+        gap: 7px;
+        width: 100%;
+        align-items: start;
+
+    }
+}

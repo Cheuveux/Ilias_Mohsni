@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+
+  --body-font : "Montserrat", sans-serif;
+  --font-color : rgb(222, 221, 201);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #041402;
+  font-family: var(--body-font);
+  color: var(--font-color);
+}
+header {
+
+    height: 10vh;
+    display: flex;
+    position: relative;
+ }
+
+ .icone-retour a {
+    display: flex;
+    justify-content: center;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    width: 48px;
+    height: 48px;
+    background: none;
+ }
+
+ .icone-retour > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+ }
+
+ .description {
+    margin-left: 2rem;
+ }
+
+.video-container {
+  width: auto;
+  height: 60vh;
+  position: relative;
+
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  
+}
+
+.video-container > video {
+    display: block;
+    object-fit: contain;
+    width: 70vw;
+    height: 100%;
+    border-radius: 2px;
+     background-color: #041402;
+}
+
+
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  right: 0;
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-around;
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.control-btn img {
+  width: 30px;
+  height: 30px;
+  background: none !important;
+  background-color: transparent !important;
+}
+
+.control-btn:hover img {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+/* --- STYLE DE LA BARRE DE PROGRESSION --- */
+input[type="range"].progressBar {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #888 0%, #333 100%);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 10px;
+}
+
+/* --- BARRE DE FOND (non remplie) --- */
+input[type="range"].progressBar::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #222;
+}
+input[type="range"].progressBar::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #222;
+}
+
+/* --- BARRE DE REMPLISSAGE (partie gauche du thumb) --- */
+input[type="range"].progressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0; /* cache le thumb */
+  height: 0;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+input[type="range"].progressBar::-moz-range-progress {
+  background-color: #e0d8b0; /* couleur d'avancement */
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Pour WebKit (Chrome, Safari) : remplissage coloré */
+input[type="range"].progressBar::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #e0d8b0 var(--progress, 0%), #333 var(--progress, 0%));
+}
+
+/* --- AU SURVOL : légère lueur --- */
+input[type="range"].progressBar:hover {
+  background: linear-gradient(90deg, #e0d8b0 0%, #444 100%);
+}
+
+/* --- OPTION : style plus "pro" du thumb si tu veux un point discret --- */
+input[type="range"].progressBar.show-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e0d8b0;
+  box-shadow: 0 0 6px rgba(224, 216, 176, 0.5);
+}
+
+
+@media screen and (max-width:750px){
+.video-container {
+    width: 100%; 
+    height: 30vh;
+    position: relative; 
+  }
+
+  .video-container > video {
+      object-fit: contain;
+      width: 100%;
+  }
+
+   .controls {
+    width: 70%;
+    padding: 5px;
+   }
+
+  .control-btn img {
+  width: 15px;
+  height: 15px;
+  background: none !important;
+  background-color: transparent !important;
+}
+
+input[type="range"].progressBar {
+  width: 40%;
+  margin: 0 5px;
+}
+
+.currentTime,
+.timeTotal {
+  font-size: .7rem;
+}
+}
+ 
+
+

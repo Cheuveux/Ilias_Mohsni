@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+
+  --body-font : "Montserrat", sans-serif;
+  --font-color : rgb(222, 221, 201);
+
+  /* Hiding scrollbar */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  background: #041402;
+
+  font-family: var(--body-font);
+  color: var(--font-color);
+}
+header {
+
+    height: 10vh;
+    width: fit-content;
+    display: flex;
+    position: relative;
+ }
+
+ .icone-retour a {
+    display: flex;
+    justify-content: center;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    width: 28px;
+    height: 28px;
+ }
+
+ .icone-retour > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+ }
+
+ .main-doc {
+    position: relative;
+    width: 100%;
+    height: 100%;
+   
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+ }
+
+.affiche-swiper {
+  display: none;
+}
+.affiche-container {
+  width: 100%;
+  height: min-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 5vw;
+  
+}
+
+.affiche-doc{
+  width: 400px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.doc-description {
+  display: flex;
+  max-width: 70vw;
+  gap: 15px;
+  margin: 0.5rem auto;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1rem;
+    
+}
+
+.full-documentary {
+  display: flex;
+  margin: 0.5rem auto;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 640px;
+  height: 360px; 
+}
+
+.full-documentary > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ecran mini-ordi/tabelette*/
+@media screen and (max-width: 1350px) {
+
+  .affiche-container {
+  gap: 2vw;
+}
+
+.affiche-doc{
+  width: 350px;
+}
+}
+
+/*Ecran grande tablette*/
+@media screen and (max-width: 1175px) {
+
+  .affiche-container {
+  gap: 1vw;
+}
+
+.affiche-doc{
+  width: 100%;
+}
+
+.doc-description {
+    max-width: 85vw;
+    gap: 10px;
+    font-size: 0.9rem;  
+    font-weight: 600;
+}
+}
+
+/*Ecran petite tablette : changement avec swiper et plus d'affiche-container*/
+@media screen and (max-width: 950px) {
+
+  .affiche-container {
+  display: none;
+}
+
+.affiche-swiper {
+  display: block;
+  width: 450px;
+  height: auto;
+}
+
+.swiper-slide {
+  width: 100%;
+  height: auto;
+}
+
+.swiper-slide > img {
+  width: 100%;
+  display: block;
+}
+
+/* Supprime l'icone par défaut */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: none !important;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  width: 48px !important;
+  height: 48px !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+
+  cursor: pointer;
+}
+
+.swiper-button-prev {
+  left: 12px;
+  background-image: url('../assets/icons/gauche.svg');
+
+}
+
+.swiper-button-next {
+  right: 12px;
+  background-image: url('../assets/icons/droite.svg');
+}
+
+
+.doc-description {
+    max-width: 85vw;
+    gap: 10px;  
+}
+
+.full-documentary {
+  display: flex;
+  margin: 0.5rem auto;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 340px;
+  height: auto; 
+  object-fit: contain;
+}
+
+.full-documentary > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+}
+
+@media screen and (max-width:700px) {
+.doc-description {
+    max-width: 85vw;
+    gap: 5px;
+    font-size: .7rem;
+}
+}
+
+@media screen and (max-width:500px) {
+  
+.affiche-swiper {
+  display: block;
+  width: 300px;
+  height: auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    width: 38px;
+    height: 38px;
+    background-size: 70%;
+  
+}
+
+.doc-description {
+    margin-top: 3rem;
+    gap: 3px;
+    font-size: .6rem;
+}
+}
+
+
+.video-container {
+  width: auto;
+  height: 60vh;
+  position: relative;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container > video {
+    display: block;
+    object-fit: contain;
+    width: 70vw;
+    height: 100%;
+    border-radius: 2px;
+     background-color: #041402;
+}
+
+/* stylisation des boutons de controle de la video (a integrer dans style.css pour global a toutes les videos details*/
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  right: 0;
+  display: flex;
+  width: 500px;
+  align-items: center;
+  justify-content: space-around;
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.control-btn img {
+  width: 30px;
+  height: 30px;
+  background: none !important;
+  background-color: transparent !important;
+}
+
+.control-btn:hover img {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+/* --- STYLE DE LA BARRE DE PROGRESSION --- */
+input[type="range"].progressBar {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #888 0%, #333 100%);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 10px;
+}
+
+/* --- BARRE DE FOND (non remplie) --- */
+input[type="range"].progressBar::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #222;
+}
+input[type="range"].progressBar::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #222;
+}
+
+/* --- BARRE DE REMPLISSAGE (partie gauche du thumb) --- */
+input[type="range"].progressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0; /* cache le thumb */
+  height: 0;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+input[type="range"].progressBar::-moz-range-progress {
+  background-color: #e0d8b0; /* couleur d'avancement */
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Pour WebKit (Chrome, Safari) : remplissage coloré */
+input[type="range"].progressBar::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #e0d8b0 var(--progress, 0%), #333 var(--progress, 0%));
+}
+
+/* --- AU SURVOL : légère lueur --- */
+input[type="range"].progressBar:hover {
+  background: linear-gradient(90deg, #e0d8b0 0%, #444 100%);
+}
+
+/* --- OPTION : style plus "pro" du thumb si tu veux un point discret --- */
+input[type="range"].progressBar.show-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e0d8b0;
+  box-shadow: 0 0 6px rgba(224, 216, 176, 0.5);
+}
+
+@media screen and (max-width:750px){
+  .video-container {
+    width: 100%; 
+    height: 30vh;
+    position: relative; 
+  }
+
+  .video-container > video {
+      object-fit: contain;
+      width: 100%;
+  }
+
+   .controls {
+    width: 70%;
+    padding: 5px;
+   }
+
+  .control-btn img {
+  width: 15px;
+  height: 30px;
+  background: none !important;
+  background-color: transparent !important;
+}
+
+input[type="range"].progressBar {
+  width: 40%;
+  margin: 0 5px;
+}
+
+.currentTime,
+.timeTotal {
+  font-size: .7rem;
+}
+}
