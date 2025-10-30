@@ -64,6 +64,28 @@ window.addEventListener("keydown", (e) => {
     if(e.key === "ArrowDown") scrollToSection(currentIndex + 1);
     if(e.key === "ArrowUp") scrollToSection(currentIndex - 1);
 });
+let touchStartY = 0;
+let touchEndY = 0;
+
+window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+}, {passive: true});
+
+window.addEventListener('touchmove', (e) =>{
+    touchEndY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touched', () => {
+    if(isScrolling || sections.length === 0)
+        return;
+    const deltaY = touchStartY - touchEndY;
+    if(Math.abs(deltaY) < 50)
+        return;
+    if(deltaY > 0)
+        scrollToSection(currentIndex + 1);
+    else
+        scrollToSection(currentIndex - 1);
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
