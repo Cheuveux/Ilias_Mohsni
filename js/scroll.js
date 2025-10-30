@@ -75,7 +75,7 @@ window.addEventListener('touchmove', (e) =>{
     touchEndY = e.touches[0].clientY;
 }, { passive: true });
 
-window.addEventListener('touched', () => {
+window.addEventListener('touchend', () => {
     if(isScrolling || sections.length === 0)
         return;
     const deltaY = touchStartY - touchEndY;
