@@ -183,15 +183,14 @@ header {
 
 .swiper-button-prev {
   left: 12px;
-  background-image: url('../assets/icons/gauche.svg');
+  background-image: url('https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/gauche.svg');
 
 }
 
 .swiper-button-next {
   right: 12px;
-  background-image: url('../assets/icons/droite.svg');
+  background-image: url('https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/droite.svg');
 }
-
 
 .doc-description {
     max-width: 85vw;
