@@ -57,13 +57,13 @@ header {
   
 }
 
-.video-container > video {
+.video-container > iframe {
     display: block;
     object-fit: contain;
     width: 70vw;
     height: 100%;
     border-radius: 2px;
-     background-color: #041402;
+    background-color: #041402;
 }
 
 
@@ -169,11 +169,12 @@ input[type="range"].progressBar.show-thumb::-webkit-slider-thumb {
     width: 100%; 
     height: 30vh;
     position: relative; 
+    margin-top: 10rem;
   }
 
-  .video-container > video {
+  .video-container > iframe {
       object-fit: contain;
-      width: 100%;
+      width: 90%;
   }
 
    .controls {
