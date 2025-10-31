@@ -1,9 +1,10 @@
 function removeDesktopBonusSlides() {
-  if (window.innerWidth >= 1050) {
-    const desktopBonusSlides = document.querySelectorAll('.swiper-slide.mobile-only');
+  if (window.innerWidth <= 1050) {
+    const desktopBonusSlides = document.querySelectorAll('.swiper-slide.desktop-only');
     desktopBonusSlides.forEach(slide => slide.remove());
   }
 }
+
 
 let swiper;
 
