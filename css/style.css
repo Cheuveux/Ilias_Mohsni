@@ -329,7 +329,7 @@ section {
 
 .lignes-brandt {
     display: flex;
-    flex-direction: column;
+    
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -346,12 +346,13 @@ section {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 15px;
     
 
   }
    .lignes-brandt .desktop-only,
-  .lignes-brandt video {
-    width: 33vw;
+  .lignes-brandt .video-lignes {
+    width: 30vw;
     height: auto;
     object-fit: contain;
     border-radius: 8px;
@@ -392,8 +393,7 @@ section {
       display: none;
     }
 
-    .lignes-brandt,
-    .lignes-brandt.mobile-only {
+    .lignes-brandt{
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -410,12 +410,11 @@ section {
   .ordi-part1 {
     flex-direction: column;
   }
-  .lignes-brandt video,
-  .lignes-brandt.mobile-only video {
+  .lignes-brandt .video-lignes {
     display: flex;
     width: 100%;
     max-width: 100%;
-    height: 33.3%;
+    height: 50%;
     object-fit: cover;
     border-radius: 8px;
     background: #000;
