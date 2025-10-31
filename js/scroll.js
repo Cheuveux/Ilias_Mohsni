@@ -67,6 +67,7 @@ window.addEventListener("keydown", (e) => {
 let touchStartY = 0;
 let touchEndY = 0;
 
+/* Scrolling on mobile
 window.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
 }, {passive: true});
@@ -85,7 +86,7 @@ window.addEventListener('touchend', () => {
         scrollToSection(currentIndex + 1);
     else
         scrollToSection(currentIndex - 1);
-});
+});*/
 
 gsap.registerPlugin(ScrollTrigger);
 
