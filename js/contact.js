@@ -1,45 +1,53 @@
 const alphabets = [
-    'iliasmohsni@gmail.com',
-    'ιlιαѕмоѕhnі@gмαιl.coм',
-    'іlіаѕмоѕhnі@gмаіl.coм',
-    'اٛلياﺱموشني@جمـيـل.كوم',
-    'ｲﾘｱｽﾓｼﾆ@gﾒｲﾙ.ｺﾑ',
-    'อิเลียสมอชนิ@จีเมล.คอม',
+  'ILIASMOHSNI7@GMAIL.COM',
+  'اٛلياﺱموشني@جمـيـل.كوم',
+  'ｲﾘｱｽﾓｼﾆ@gﾒｲﾙ.ｺﾑ',
+  'อิเลียสมอชนิ@จีเมล.คอม',
 ];
 
 const anchor = document.querySelector('.multi-script');
+let index = 0;
+let charIndex = 0;
+let isDeleting = false;
+let isPaused = false;
+let isHovered = false; // ← nouvel état pour hover
 
-function wrapLetters(text) {
-    return text.split('').map(c => `<span>${c}</span>`).join('');
+// ⚡ bloque l’effacement si la souris est dessus
+anchor.addEventListener('mouseenter', () => isHovered = true);
+anchor.addEventListener('mouseleave', () => isHovered = false);
+
+function type() {
+  if (isPaused) return;
+
+  const current = alphabets[index];
+  const displayed = current.substring(0, charIndex);
+  anchor.innerHTML = displayed + '<span class="cursor">|</span>';
+
+  if (!isDeleting && charIndex < current.length) {
+    charIndex++;
+    setTimeout(type, 100);
+  } else if (isDeleting && charIndex > 0) {
+    if (!isHovered) { // ← ne supprime que si pas hover
+      charIndex--;
+    }
+    setTimeout(type, 40);
+  } else {
+    if (!isDeleting) {
+      isDeleting = true;
+      setTimeout(type, 1200);
+    } else {
+      isDeleting = false;
+      index = (index + 1) % alphabets.length;
+
+      const pauseTime = index === 0 ? 3000 : 0;
+      isPaused = true;
+      setTimeout(() => {
+        isPaused = false;
+        type();
+      }, 3000 + pauseTime);
+    }
+  }
 }
 
-let i = 0;
-anchor.innerHTML = wrapLetters(alphabets[i]);
-
-function changeAlphabet() {
-    i = (i + 1) % alphabets.length;
-    const newText = alphabets[i];
-    const spans = anchor.querySelectorAll('span');
-
-    newText.split('').forEach((char, idx) => {
-        if (spans[idx]) {
-            // délai aléatoire pour chaque lettre
-            setTimeout(() => {
-                spans[idx].textContent = char;
-                spans[idx].style.color = ['#fff','#ccc','#aaa','#eee'][Math.floor(Math.random()*4)];
-                spans[idx].style.transform = `translate(${Math.random()*10-2}px, ${Math.random()*10-2}px)`;
-                setTimeout(() => { spans[idx].style.transform = 'translate(0,0)'; }, 150);
-            }, idx * 70); // décalage progressif par index
-        } else {
-            anchor.innerHTML += `<span>${char}</span>`;
-        }
-    });
-}
-
-// Curseur clignotant (terminal)
-anchor.insertAdjacentHTML('beforeend','<span class="cursor">|</span>');
-
-setInterval(() => {
-    changeAlphabet();
-    anchor.setAttribute('data-text', alphabets[i]);
-}, 1100);
+// pause initiale 3s
+setTimeout(() => type(), 3000);

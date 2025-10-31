@@ -1,66 +1,83 @@
+main {
+  color: rgb(201, 222, 201);
+}
+
 .contact-main-container {
+  position: relative;
     display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
+    width: 95%;
+    max-width: 100%;
+    height: 100vh;
+    
+    justify-content: space-around;
     align-items: center;
-    margin-top: 25rem;
+    padding: 1rem;
+}
+
+
+
+.contact-info {
+  display: flex;
+ 
+  max-width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.contact-link a{
+  color: rgb(222, 221, 201);
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+.contact-title {
+  font-size: 4rem;
+}
+
+.contact-illu {
+  display: flex;
+  width: 600px;
+  max-width: 600px;
+  height: 600px;
+  max-height: 600px;
+  border: solid 1px rgba(128, 128, 128, 0.572);
 }
 
 .multi-script {
-    text-decoration: none;
-    position: relative;
-    font-size: 1.8rem;
-    color: #fff;
-    animation: hue 4s linear infinite;
-    transition: opacity 0.3s, transform 0.3s;
+  display: inline-block;
+  font-family: monospace;
+  letter-spacing: 1px;
 }
 
-.multi-script::before,
-.multri-script::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    overflow: hidden;
-    color: #aaa ;
-    clip-path: inset(0 0 0 0);
-}
-.multri-script::after {
-    color: #555;
-    opacity: 0.4;
+.multi-script .char {
+  display: inline-block;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* --- Animation glitch --- */
-@keyframes glitch {
-  0% { clip-path: inset(10% 0 85% 0); transform: translate(-2px, -2px); }
-  10% { clip-path: inset(85% 0 10% 0); transform: translate(2px, 2px); }
-  20% { clip-path: inset(30% 0 50% 0); transform: translate(-1px, 1px); }
-  30% { clip-path: inset(60% 0 25% 0); transform: translate(1px, -1px); }
-  40% { clip-path: inset(20% 0 60% 0); transform: translate(0, 2px); }
-  50% { clip-path: inset(40% 0 40% 0); transform: translate(2px, 0); }
-  60% { clip-path: inset(10% 0 80% 0); transform: translate(-1px, 0); }
-  70% { clip-path: inset(70% 0 10% 0); transform: translate(0, -2px); }
-  80% { clip-path: inset(25% 0 65% 0); transform: translate(1px, 1px); }
-  90% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 2px); }
-  100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
-}
-
-.multi-script::before,
-.multi-script::after {
-  animation: glitch 1s infinite linear alternate-reverse;
-}
-
-/* --- Changement de teinte global --- */
-@keyframes hue {
-  from { filter: hue-rotate(0deg); }
-  to { filter: hue-rotate(360deg); }
-}
-
-/* --- Transition douce entre alphabets --- */
-.fade {
+.multi-script .fade-out {
   opacity: 0;
-  transform: scale(0.95);
+  transform: translateY(-10px);
+}
+
+.multi-script .fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.multi-script .cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 0.9s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
