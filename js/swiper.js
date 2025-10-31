@@ -3,6 +3,11 @@ function removeDesktopBonusSlides() {
     const desktopBonusSlides = document.querySelectorAll('.swiper-slide.desktop-only');
     desktopBonusSlides.forEach(slide => slide.remove());
   }
+
+  if(window.innerWidth >= 1050) {
+    const mobileBonusSlides = document.querySelectorAll('.swiper-slide.mobile-only');
+    mobileBonusSlides.forEach(slide => slide.remove());
+  }
 }
 
 
