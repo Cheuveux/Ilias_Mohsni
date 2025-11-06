@@ -91,6 +91,7 @@ section {
   z-index: 10;
   position: absolute;
   top: 8%;
+  left: 2%;
   font-size: 2.5rem;
   color: rgb(243, 247, 231);
   transition: left 0.3s ease-out;

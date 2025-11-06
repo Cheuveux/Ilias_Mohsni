@@ -33,48 +33,7 @@ function enableScroll() {
     document.body.style.overflow = '';
 }
 
-// Scroll fluide avec GSAP
-function scrollToSection(index) {
-    if (isScrolling || sections.length === 0) return;
 
-    isScrolling = true;
-    disableScroll(); // bloque le scroll natif pendant l’animation
-    index = Math.max(0, Math.min(index, sections.length - 1));
-
-    // Si on relance depuis une position autre que le haut, ignore le jump
-    if (index === 0 && initialScrollCaptured) {
-        enableScroll();
-        isScrolling = false;
-        return;
-    }
-
-    const targetSection = sections[index];
-    const targetPosition = targetSection.offsetTop;
-
-    gsap.to(window, {
-        scrollTo: { y: targetPosition, autoKill: false },
-        duration: 0.8,
-        ease: "power2.out",
-        overwrite: true,
-        force3D: true,
-        onComplete: () => {
-            if (index === sections.length - 1) {
-                // Boucle fluide
-                gsap.delayedCall(0.05, () => {
-                    window.scrollTo(0, sections[0].offsetTop);
-                    currentIndex = 0;
-                    ScrollTrigger.refresh();
-                    enableScroll();
-                    isScrolling = false;
-                });
-            } else {
-                currentIndex = index;
-                enableScroll();
-                isScrolling = false;
-            }
-        }
-    });
-}
 
 // ---------------------
 // 🎡 GESTION DU SCROLL SOURIS
@@ -126,3 +85,45 @@ window.addEventListener('keydown', (e) => {
         scrollToSection(currentIndex - 1);
     }
 });
+
+// Scroll fluide avec GSAP
+function scrollToSection(index) {
+  if (isScrolling || sections.length === 0) return;
+
+  isScrolling = true;
+  disableScroll();
+  index = Math.max(0, Math.min(index, sections.length - 1));
+
+  // Si on relance depuis une position autre que le haut, ignore le jump
+  if (index === 0 && initialScrollCaptured) {
+      enableScroll();
+      isScrolling = false;
+      return;
+  }
+
+  const targetSection = sections[index];
+  const targetPosition = targetSection.offsetTop;
+
+  gsap.to(window, {
+      scrollTo: { y: targetPosition, autoKill: false },
+      duration: 0.8,
+      ease: "power2.out",
+      overwrite: true,
+      onComplete: () => {
+          if (index === sections.length - 1) {
+              // Boucle fluide
+              gsap.delayedCall(0.05, () => {
+                  window.scrollTo(0, sections[0].offsetTop);
+                  currentIndex = 0;
+                  ScrollTrigger.refresh();
+                  enableScroll();
+                  isScrolling = false;
+              });
+          } else {
+              currentIndex = index;
+              enableScroll();
+              isScrolling = false;
+          }
+      }
+  });
+}
