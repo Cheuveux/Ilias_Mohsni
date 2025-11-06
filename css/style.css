@@ -347,10 +347,10 @@ section {
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 0.5rem;
+    gap: 1rem;
     height: 100%;
     background: transparent;
-    margin: 4rem 1rem;
+    margin: 2rem 0rem;
     padding: 0;
     box-sizing: border-box;
     z-index: 0;
@@ -366,7 +366,7 @@ section {
   }
    .lignes-brandt .desktop-only,
   .lignes-brandt .video-lignes {
-    width: 30vw;
+    width: 45vw;
     height: auto;
     object-fit: contain;
     border-radius: 8px;
