@@ -100,14 +100,14 @@ section {
   left: 2%;
 }
 .documentary.title-section {
-  left: 20%;
+  left: 15%;
 }
 .photomontage.title-section {
-  left: 44%;
+  left: 40%;
 }
 
 .photography.title-section {
-  left: 66%;
+  left: 55%;
 }
 
 .swiper {
@@ -634,10 +634,12 @@ section {
 
   }
 @media screen and (max-width: 700px) {
-  
-.photo-section {
-   margin-top: 1rem;
-
+  .photography .title-section {
+    top : 8%;
+    left: 44%;
+  }
+  .photo-section {
+    margin-top: 5rem;
   }
   .photo-group1,
   .photo-group2,
@@ -649,7 +651,7 @@ section {
     align-items: start;
     justify-content: center;
     margin-bottom: 0;
-    gap: 1vh;
+    gap: 2vh;
   }
   .photo-group1 .photo-album,
   .photo-group2 .photo-album,
@@ -658,42 +660,6 @@ section {
     width: 45vw;
     height: auto;
     justify-content: center;
-    gap: 10vh;
-    margin-bottom: 0vh;
+    margin-bottom: 1vh;
    }
   }
-
-
-  /*Barre de controle des videos-details et doc*/
-  .controls {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background: rgba(0,0,0,0.6);
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.control-btn {
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.control-btn img {
-  width: 30px;
-  height: 30px;
-  background: none !important;
-  background-color: transparent !important;
-}
-
-.control-btn:hover img {
-  transform: scale(1.2);
-  opacity: 0.8;
-}

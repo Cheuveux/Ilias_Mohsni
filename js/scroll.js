@@ -155,6 +155,7 @@ function scrollToSection(index) {
         onComplete: () => {
             animateSectionTitles(targetSection);
 
+            // Si on est sur le clone (last section), on revient à la vraie première section
             if (index === sections.length - 1) {
                 gsap.delayedCall(0.05, () => {
                     window.scrollTo(0, sections[0].offsetTop);
@@ -162,6 +163,7 @@ function scrollToSection(index) {
                     ScrollTrigger.refresh();
                     enableScroll();
                     isScrolling = false;
+                    animateSectionTitles(sections[0]); // Anime la vraie première section après retour
                 });
             } else {
                 currentIndex = index;
