@@ -96,7 +96,7 @@ section {
   transition: left 0.3s ease-out;
 }
 
-.video-production {
+.video-production .title-section{
   left: 2%;
 }
 .documentary.title-section {
@@ -104,6 +104,10 @@ section {
 }
 .photomontage.title-section {
   left: 44%;
+}
+
+.photography.title-section {
+  left: 66%;
 }
 
 .swiper {
