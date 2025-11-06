@@ -40,6 +40,22 @@ function initSwiper() {
       onlyInViewport: true,
     },
   });
+
+  const videos = document.querySelectorAll('.swiper-slide video');
+  videos.forEach(video => {
+    video.muted = true;
+    video.playsInline = true;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const playOnTouch = () => {
+          video.play();
+          window.removeEventListener('touchstart', playOnTouch);
+        };
+        window.addEventListener('touchstart', playOnTouch);
+      });
+    }
+  });
 }
 
 function setupSwiper() {
@@ -54,4 +70,3 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('resize', () => {
   setupSwiper();
 });
-
