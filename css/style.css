@@ -21,7 +21,7 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgb(04, 14, 02); 
 
@@ -55,6 +55,7 @@ html, body {
 
 .header-nav {
   width: 100%;
+  max-width: 100%;
   list-style: none;
   padding-right: 4.5rem;
   margin-top: .5rem;
@@ -174,9 +175,10 @@ section {
 
   header {
     display: flex;
-    width: 100%;
+    width: 90%;
+    max-width: 100ù;
     margin: 1rem 0;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
     position: fixed;
     top: 0;
     left: 0;
