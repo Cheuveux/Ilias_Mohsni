@@ -63,10 +63,45 @@ function setupSwiper() {
   initSwiper();
 }
 
+function insertResponsiveVideos() {
+  document.querySelectorAll('.video-container').forEach(container => {
+    // Évite de dupliquer la vidéo si déjà présente
+    if (container.querySelector('video')) return;
+    const isMobile = window.innerWidth <= 625;
+    const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
+    if (!src) return;
+    const video = document.createElement('video');
+    video.src = src;
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "none";
+    video.className = isMobile ? 'format-bigo' : 'format-ordi';
+    container.appendChild(video);
+
+    // Lecture automatique sur mobile après interaction utilisateur
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const playOnTouch = () => {
+          video.play();
+          window.removeEventListener('touchstart', playOnTouch);
+        };
+        window.addEventListener('touchstart', playOnTouch);
+      });
+    }
+  });
+}
+
+// Appelle cette fonction AVANT d'initialiser Swiper
 document.addEventListener('DOMContentLoaded', () => {
+  removeDesktopBonusSlides();
+  insertResponsiveVideos();
   setupSwiper();
 });
 
 window.addEventListener('resize', () => {
+  insertResponsiveVideos();
   setupSwiper();
 });
