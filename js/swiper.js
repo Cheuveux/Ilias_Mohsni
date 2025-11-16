@@ -33,8 +33,26 @@ function initAllSwipers() {
       },
     });
 
-    // Lazy-load vidéo : insère la vidéo uniquement sur le slide actif
+    // Animation GSAP pour tous les slides
     swiperInstance.on('slideChange', () => {
+      swiperEl.querySelectorAll('.swiper-slide').forEach(slide => {
+        gsap.to(slide, { opacity: 0, duration: 0.5, overwrite: true });
+      });
+      
+      swiperInstance.on('slideChangeTransitionStart', () => {
+  // Fade out tous les slides sauf l'actif
+  swiperEl.querySelectorAll('.swiper-slide').forEach(slide => {
+    if (!slide.classList.contains('swiper-slide-active')) {
+      gsap.to(slide, { opacity: 0, duration: 0.5, overwrite: true });
+    }
+  });
+  // Fade in le slide actif
+  const activeSlide = swiperEl.querySelector('.swiper-slide-active');
+  if (activeSlide) {
+    gsap.to(activeSlide, { opacity: 1, duration: 0.6, overwrite: true, delay: 0.1 });
+  }
+});
+      // Gestion vidéo
       swiperEl.querySelectorAll('.swiper-slide').forEach((slide, idx) => {
         const container = slide.querySelector('.video-container');
         if (!container) return;
