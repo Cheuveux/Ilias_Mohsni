@@ -260,8 +260,6 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 1;
-    transition: opacity 2.5s;
   }
 
   .swiper-slide > video {
