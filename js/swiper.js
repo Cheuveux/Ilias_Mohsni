@@ -10,56 +10,56 @@ function removeDesktopBonusSlides() {
 function handleVideos(swiperEl) {
   const slides = swiperEl.querySelectorAll('.swiper-slide');
   slides.forEach(slide => {
-    const container = slide.querySelector('.video-container');
-    if (!container) return;
+    // Pour chaque container vidéo dans le slide
+    slide.querySelectorAll('.video-container').forEach(container => {
+      // Slide actif ou unique
+      if (slide.classList.contains('swiper-slide-active') || slides.length === 1) {
+        if (!container.querySelector('video')) {
+          const isMobile = window.innerWidth <= 625;
+          const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
+          if (!src) return;
+          const video = document.createElement('video');
+          video.src = src;
+          video.autoplay = true;
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.preload = "none";
+          video.className = isMobile ? 'format-bigo' : 'format-ordi';
+          video.style.opacity = 0;
+          container.appendChild(video);
 
-    // Slide actif ou unique
-    if (slide.classList.contains('swiper-slide-active') || slides.length === 1) {
-      if (!container.querySelector('video')) {
-        const isMobile = window.innerWidth <= 625;
-        const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
-        if (!src) return;
-        const video = document.createElement('video');
-        video.src = src;
-        video.autoplay = true;
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        video.preload = "none";
-        video.className = isMobile ? 'format-bigo' : 'format-ordi';
-        video.style.opacity = 0;
-        container.appendChild(video);
-
-        // GSAP apparition
-        video.addEventListener('loadeddata', () => {
-          gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
-        });
-
-        // Lecture automatique sur mobile après interaction utilisateur
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            const playOnTouch = () => {
-              video.play();
-              window.removeEventListener('touchstart', playOnTouch);
-            };
-            window.addEventListener('touchstart', playOnTouch);
+          // GSAP apparition
+          video.addEventListener('loadeddata', () => {
+            gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
           });
+
+          // Lecture automatique sur mobile après interaction utilisateur
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              const playOnTouch = () => {
+                video.play();
+                window.removeEventListener('touchstart', playOnTouch);
+              };
+              window.addEventListener('touchstart', playOnTouch);
+            });
+          }
+        } else {
+          const video = container.querySelector('video');
+          video.play();
         }
-      } else {
+      } else if (slides.length > 1) {
+        // Retire la vidéo des containers inactifs
         const video = container.querySelector('video');
-        video.play();
+        if (video) {
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+          video.remove();
+        }
       }
-    } else if (slides.length > 1) {
-      // Retire la vidéo des slides inactives
-      const video = container.querySelector('video');
-      if (video) {
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
-        video.remove();
-      }
-    }
+    });
   });
 }
 

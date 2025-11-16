@@ -187,3 +187,53 @@ window.addEventListener('DOMContentLoaded', () => {
     // Anime la première section au chargement
     if (sections[0]) animateSectionTitles(sections[0]);
 });
+
+// ---------------------
+// 🎥 GESTION DES VIDÉOS EN FONCTION DE LA SECTION VISIBLE
+// ---------------------
+function lazyLoadSectionVideos(section) {
+  // Insère les vidéos de la section visible
+  section.querySelectorAll('.video-container').forEach(container => {
+    if (container.querySelector('video')) return;
+    const isMobile = window.innerWidth <= 625;
+    const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
+    if (!src) return;
+    const video = document.createElement('video');
+    video.src = src;
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "none";
+    video.className = isMobile ? 'format-bigo' : 'format-ordi';
+    video.style.opacity = 0;
+    container.appendChild(video);
+
+    // GSAP apparition
+    video.addEventListener('loadeddata', () => {
+      gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
+    });
+
+    // Lecture automatique sur mobile après interaction utilisateur
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const playOnTouch = () => {
+          video.play();
+          window.removeEventListener('touchstart', playOnTouch);
+        };
+        window.addEventListener('touchstart', playOnTouch);
+      });
+    }
+  });
+}
+
+function unloadSectionVideos(section) {
+  // Retire toutes les vidéos de la section invisible
+  section.querySelectorAll('.video-container video').forEach(video => {
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    video.remove();
+  });
+}
