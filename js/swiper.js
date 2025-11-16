@@ -11,7 +11,7 @@ function initAllSwipers() {
   document.querySelectorAll('.swiper').forEach(swiperEl => {
     let swiperInstance = new Swiper(swiperEl, {
       direction: 'horizontal',
-      loop: true,
+      loop: swiperEl.querySelectorAll('.swiper-slide').length > 1,
       pagination: {
         el: swiperEl.querySelector('.swiper-pagination'),
         clickable: true,
@@ -33,31 +33,31 @@ function initAllSwipers() {
       },
     });
 
-    // Animation GSAP pour tous les slides
-    swiperInstance.on('slideChange', () => {
+    // Remet tous les slides visibles au chargement
+    swiperEl.querySelectorAll('.swiper-slide').forEach(slide => {
+      gsap.set(slide, { opacity: 1 });
+    });
+
+    swiperInstance.on('slideChangeTransitionStart', () => {
+      // Animation GSAP : fade out tous les slides sauf l'actif, fade in l'actif
       swiperEl.querySelectorAll('.swiper-slide').forEach(slide => {
-        gsap.to(slide, { opacity: 0, duration: 0.5, overwrite: true });
+        if (!slide.classList.contains('swiper-slide-active')) {
+          gsap.to(slide, { opacity: 0, duration: 0.5, overwrite: true });
+        }
       });
-      
-      swiperInstance.on('slideChangeTransitionStart', () => {
-  // Fade out tous les slides sauf l'actif
-  swiperEl.querySelectorAll('.swiper-slide').forEach(slide => {
-    if (!slide.classList.contains('swiper-slide-active')) {
-      gsap.to(slide, { opacity: 0, duration: 0.5, overwrite: true });
-    }
-  });
-  // Fade in le slide actif
-  const activeSlide = swiperEl.querySelector('.swiper-slide-active');
-  if (activeSlide) {
-    gsap.to(activeSlide, { opacity: 1, duration: 0.6, overwrite: true, delay: 0.1 });
-  }
-});
+      const activeSlide = swiperEl.querySelector('.swiper-slide-active');
+      if (activeSlide) {
+        gsap.to(activeSlide, { opacity: 1, duration: 0.6, overwrite: true, delay: 0.1 });
+      }
+
       // Gestion vidéo
-      swiperEl.querySelectorAll('.swiper-slide').forEach((slide, idx) => {
+      const slides = swiperEl.querySelectorAll('.swiper-slide');
+      slides.forEach(slide => {
         const container = slide.querySelector('.video-container');
         if (!container) return;
 
-        if (idx === swiperInstance.activeIndex) {
+        // Si slide actif OU s'il n'y a qu'un seul slide
+        if (slide.classList.contains('swiper-slide-active') || slides.length === 1) {
           if (!container.querySelector('video')) {
             const isMobile = window.innerWidth <= 625;
             const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
@@ -86,7 +86,8 @@ function initAllSwipers() {
             const video = container.querySelector('video');
             video.play();
           }
-        } else {
+        } else if (slides.length > 1) {
+          // On ne retire la vidéo que s'il y a plusieurs slides
           const video = container.querySelector('video');
           if (video) {
             video.pause();
@@ -100,7 +101,11 @@ function initAllSwipers() {
 
     // Insère la vidéo du slide actif au chargement
     setTimeout(() => {
-      const activeSlide = swiperEl.querySelector('.swiper-slide-active .video-container');
+      // Si un seul slide, on prend le premier
+      let activeSlide = swiperEl.querySelector('.swiper-slide-active .video-container');
+      if (!activeSlide && swiperEl.querySelectorAll('.swiper-slide').length === 1) {
+        activeSlide = swiperEl.querySelector('.swiper-slide .video-container');
+      }
       if (activeSlide && !activeSlide.querySelector('video')) {
         const isMobile = window.innerWidth <= 625;
         const src = isMobile ? activeSlide.dataset.srcMobile : activeSlide.dataset.srcDesktop;
@@ -131,17 +136,6 @@ function initAllSwipers() {
   });
 }
 
-function setupSwiper() {
-  initAllSwipers();
-}
-
-// Appelle cette fonction AVANT d'initialiser Swiper
-document.addEventListener('DOMContentLoaded', () => {
-  removeDesktopBonusSlides();
-  setupSwiper();
-});
-
-window.addEventListener('resize', () => {
-  removeDesktopBonusSlides();
-  setupSwiper();
-});
+// Appel des fonctions
+removeDesktopBonusSlides();
+initAllSwipers();
