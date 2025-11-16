@@ -147,6 +147,15 @@ function scrollToSection(index) {
     const targetSection = sections[index];
     const targetPosition = targetSection.offsetTop;
 
+    // Lazy load vidéos de la section cible, retire celles des autres
+    sections.forEach((section, i) => {
+      if (i === index) {
+        lazyLoadSectionVideos(section);
+      } else {
+        unloadSectionVideos(section);
+      }
+    });
+
     gsap.to(window, {
         scrollTo: { y: targetPosition, autoKill: false },
         duration: 0.8,
@@ -163,7 +172,9 @@ function scrollToSection(index) {
                     ScrollTrigger.refresh();
                     enableScroll();
                     isScrolling = false;
-                    animateSectionTitles(sections[0]); // Anime la vraie première section après retour
+                    animateSectionTitles(sections[0]);
+                    // Lazy load la vraie première section
+                    lazyLoadSectionVideos(sections[0]);
                 });
             } else {
                 currentIndex = index;
@@ -185,7 +196,10 @@ window.addEventListener('DOMContentLoaded', () => {
         gsap.set(el, { x: 100, opacity: 0 });
     });
     // Anime la première section au chargement
-    if (sections[0]) animateSectionTitles(sections[0]);
+    if (sections[0]) {
+      animateSectionTitles(sections[0]);
+      lazyLoadSectionVideos(sections[0]);
+    }
 });
 
 // ---------------------
@@ -237,3 +251,22 @@ function unloadSectionVideos(section) {
     video.remove();
   });
 }
+
+window.addEventListener('pageshow', () => {
+  // Trouve la section actuellement visible (celle la plus proche du scroll)
+  let visibleSection = sections[0];
+  let minDist = Math.abs(window.scrollY - sections[0].offsetTop);
+  sections.forEach(section => {
+    const dist = Math.abs(window.scrollY - section.offsetTop);
+    if (dist < minDist) {
+      minDist = dist;
+      visibleSection = section;
+    }
+  });
+
+  // Réanime les titres et lazy-load les vidéos de la section visible
+  if (visibleSection) {
+    animateSectionTitles(visibleSection);
+    lazyLoadSectionVideos(visibleSection);
+  }
+});

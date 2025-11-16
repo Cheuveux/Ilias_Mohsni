@@ -31,7 +31,7 @@ function handleVideos(swiperEl) {
 
           // GSAP apparition
           video.addEventListener('loadeddata', () => {
-            gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
+            gsap.to(video, { opacity: 1, duration: 0.3, ease: "power2.out" });
           });
 
           // Lecture automatique sur mobile après interaction utilisateur
