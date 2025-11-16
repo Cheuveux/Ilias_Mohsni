@@ -71,4 +71,33 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     });
   });
+
+  // Loader : attend que les vidéos du premier swiper soient chargées, min 2s
+  const firstSwiper = document.querySelector('.swiper');
+  const loader = document.getElementById('intro-loader');
+  if (!firstSwiper || !loader) {
+    if (loader) loader.style.display = 'none';
+    return;
+  }
+  const videos = firstSwiper.querySelectorAll('.video-container video');
+  if (videos.length === 0) {
+    setTimeout(() => { loader.style.display = 'none'; }, 2000); // min 2s
+    return;
+  }
+  let loaded = 0;
+  const start = Date.now();
+  videos.forEach(video => {
+    video.addEventListener('loadeddata', () => {
+      loaded++;
+      if (loaded === videos.length) {
+        const elapsed = Date.now() - start;
+        const wait = Math.max(0, 2000 - elapsed);
+        loader.style.opacity = 0;
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 600 + wait); // 600ms pour le fade + attente min 2s
+      }
+    });
+  });
 });
+
