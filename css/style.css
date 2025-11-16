@@ -271,7 +271,7 @@ section {
   }
 
   .content-title {
-    z-index: 10;
+    z-index: 1000;
     position: absolute;
     bottom: 15%;
     margin: 0rem 1rem;
@@ -299,12 +299,11 @@ section {
   .documentary .format-ordi {
     display: none;
   }
-  .video-production .format-bigo,
-  .documentary .format-bigo{
+ .format-bigo{
     width: 100vw;
     height: 100vh;
     object-fit: cover;
-    background: #000; /* pour éviter les bandes blanches */
+    background: #000;
     display: block;
     margin: 0 auto;
   }
