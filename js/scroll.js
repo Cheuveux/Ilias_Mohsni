@@ -268,6 +268,8 @@ function lazyLoadSectionVideos(section) {
 
     video.addEventListener('loadeddata', () => {
       gsap.to(video, { opacity: 1, duration: 0.5, ease: "power2.out" });
+      // ✅ Force le play immédiatement après loadeddata
+      playVideo();
     }, { once: true });
 
     const playVideo = () => {
@@ -278,6 +280,7 @@ function lazyLoadSectionVideos(section) {
       });
     };
 
+    // Tente de jouer immédiatement si déjà prêt
     if (video.readyState >= 2) {
       playVideo();
     } else {
