@@ -57,10 +57,12 @@ window.addEventListener("wheel", (e) => {
 // ---------------------
 let touchStartY = 0;
 let touchEndY = 0;
+let touchStartX = 0;
 let touchStartTime = 0;
 
 window.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
     touchStartTime = Date.now();
 }, { passive: true });
 
@@ -72,16 +74,16 @@ window.addEventListener('touchmove', (e) => {
 window.addEventListener('touchend', (e) => {
     if (isScrolling || sections.length === 0) return;
     
-    // Vérifie si le touch était sur un lien ou un élément cliquable
+    // Vérifie si le touch était sur un lien
     const target = e.target;
-    if (target.closest('a') || target.closest('button') || target.closest('.swiper')) {
-        return; // Ne fait rien si c'est un lien/bouton/swiper
+    if (target.closest('a')) {
+        return; // Ne fait rien si c'est un lien
     }
     
     const deltaY = touchStartY - touchEndY;
     const touchDuration = Date.now() - touchStartTime;
     
-    // Ignore les petits swipes et les touches trop courtes (probablement des clics)
+    // Ignore les petits swipes verticaux et les touches trop courtes (probablement des clics)
     if (Math.abs(deltaY) < 50 || touchDuration < 100) return;
     
     if (deltaY > 0) scrollToSection(currentIndex + 1);
