@@ -24,12 +24,16 @@ html, body {
   width: 100%;
   height: 100vh;
   background: rgb(04, 14, 02); 
+
   font-family: var(--body-font);
-  
-  /* ✅ Scroll natif avec snap */
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+}
+
+/* ✅ Scroll natif pour mobile */
+@media screen and (max-width: 625px) {
+  html, body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
     header {
@@ -174,17 +178,8 @@ html, body {
   border-radius: 5px;
   cursor: pointer;
   letter-spacing: 4px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: all 0.3s ease;
   text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-}
-
-.enter-btn.loaded {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
 }
 
 .enter-btn:hover {
