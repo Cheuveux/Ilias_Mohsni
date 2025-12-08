@@ -264,7 +264,22 @@ function lazyLoadSectionVideos(section) {
     video.controls = false;
     video.className = isMobile ? 'format-bigo' : 'format-ordi';
     video.style.opacity = 0;
+    
+    // ✅ Empêche le clic sur la vidéo de déclencher le lien parent
+    video.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    
     container.appendChild(video);
+    
+    // ✅ Force le play immédiatement après insertion dans le DOM
+    setTimeout(() => {
+      video.muted = true;
+      video.play().catch(() => {
+        console.log('Autoplay bloqué, retry sur interaction');
+      });
+    }, 100);
 
     video.addEventListener('loadeddata', () => {
       gsap.to(video, { opacity: 1, duration: 0.5, ease: "power2.out" });
