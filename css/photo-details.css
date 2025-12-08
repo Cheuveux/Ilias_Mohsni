@@ -89,7 +89,7 @@ header {
  
 
 
-.swiper-slide > .paysage {
+.swiper-slide > img {
   width: 850px;
   height: 600px;
  
@@ -98,15 +98,7 @@ header {
   display: block; /* au lieu de flex */
   margin: 0 auto; /* centre horizontalement si nécessaire */
 }
-.swiper-slide > .portrait {
-  height: 600px;
-  width: 450px;
- 
-  
-   object-fit: cover;
-  display: block; /* au lieu de flex */
-  margin: 0 auto; /* centre horizontalement si nécessaire */
-}
+
 
 .lefted {
    position: absolute;
@@ -194,15 +186,9 @@ footer .scrolling-content > * {
    margin-top: 10vw;
 }
 
- .swiper-slide > .paysage {
+ .swiper-slide > img {
    width: auto;
    height: 30vh;
-   object-fit: cover;
- }
-
- .swiper-slide > .portrait {
-   height: 30vh;
-   width: auto;
    object-fit: cover;
  }
 

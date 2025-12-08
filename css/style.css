@@ -359,7 +359,7 @@ section {
 .first-montage video,
 .first-montage.desktop-only video {
   display: block;
-  width: 33vw;
+  width: 30vw;
 }
 
 .content-title.first-montage.desktop-only {
@@ -387,6 +387,10 @@ section {
     padding: 0;
     box-sizing: border-box;
     z-index: 0;
+  }
+  .lignes-brandt .content-title {
+    left: 5%;
+    bottom: 7%;
   }
   .ordi-part1,
   .ordi-part2 {
