@@ -231,110 +231,25 @@ window.addEventListener('DOMContentLoaded', () => {
         gsap.set(el, { x: 100, opacity: 0 });
     });
     
-    // ✅ Sur mobile : charge TOUTES les vidéos d'un coup
-    if (window.innerWidth <= 625) {
-        loadAllVideosOnMobile();
-    }
-    
     // Anime la première section au chargement
     if (sections[0]) {
       animateSectionTitles(sections[0]);
       lazyLoadSectionVideos(sections[0]);
     }
     
-    // ✅ Active le scroll après 3s comme sécurité si le loader ne le fait pas
-    setTimeout(() => {
-        if (!isInitialLoadComplete) {
-            isInitialLoadComplete = true;
-            console.log('⚠️ Scroll activé par timeout de sécurité');
-        }
-    }, 3000);
-});
-
-// Fonction globale appelée par swiper.js quand le loader est caché
-window.enableScrollAfterLoad = function() {
+    // ✅ Active le scroll immédiatement
     isInitialLoadComplete = true;
-    console.log('✅ Scroll activé après chargement initial');
-};
+    console.log('✅ Scroll activé au DOMContentLoaded');
+});
 
 // ---------------------
 // 🎥 GESTION DES VIDÉOS EN FONCTION DE LA SECTION VISIBLE
 // ---------------------
-
-// ✅ Sur mobile : charge TOUTES les vidéos d'un coup
-function loadAllVideosOnMobile() {
-  const isMobile = window.innerWidth <= 625;
-  if (!isMobile) return;
-
-  sections.forEach(section => {
-    section.querySelectorAll('.video-container').forEach(container => {
-      if (container.querySelector('video')) return;
-      const src = container.dataset.srcMobile;
-      if (!src) return;
-      
-      const video = document.createElement('video');
-      video.src = src;
-      video.autoplay = false; // Ne lance pas toutes les vidéos en même temps
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.preload = "auto";
-      video.setAttribute('webkit-playsinline', 'true');
-      video.setAttribute('x5-playsinline', 'true');
-      video.controls = false;
-      video.className = 'format-bigo';
-      video.style.opacity = 0;
-      container.appendChild(video);
-
-      // GSAP apparition quand la section devient visible
-      video.addEventListener('loadeddata', () => {
-        const parentSection = container.closest('section');
-        if (parentSection && parentSection.classList.contains('active-section')) {
-          gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
-        }
-      }, { once: true });
-    });
-  });
-}
-
 function lazyLoadSectionVideos(section) {
-  const isMobile = window.innerWidth <= 625;
-  
-  // Sur mobile, les vidéos sont déjà chargées, on les affiche juste
-  if (isMobile) {
-    section.classList.add('active-section');
-    section.querySelectorAll('.video-container video').forEach(video => {
-      gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
-      
-      // Force le play
-      const playVideo = () => {
-        const promise = video.play();
-        if (promise !== undefined) {
-          promise.catch(() => {
-            const retry = () => {
-              video.play();
-              document.removeEventListener('touchstart', retry);
-              document.removeEventListener('click', retry);
-            };
-            document.addEventListener('touchstart', retry, { once: true });
-            document.addEventListener('click', retry, { once: true });
-          });
-        }
-      };
-      
-      if (video.readyState >= 3) {
-        playVideo();
-      } else {
-        video.addEventListener('canplay', playVideo, { once: true });
-      }
-    });
-    return;
-  }
-  
-  // Sur desktop : lazy loading classique
   section.querySelectorAll('.video-container').forEach(container => {
     if (container.querySelector('video')) return;
-    const src = container.dataset.srcDesktop;
+    const isMobile = window.innerWidth <= 625;
+    const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
     if (!src) return;
     
     const video = document.createElement('video');
@@ -347,30 +262,23 @@ function lazyLoadSectionVideos(section) {
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('x5-playsinline', 'true');
     video.controls = false;
-    video.className = 'format-ordi';
+    video.className = isMobile ? 'format-bigo' : 'format-ordi';
     video.style.opacity = 0;
     container.appendChild(video);
 
     video.addEventListener('loadeddata', () => {
-      gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
+      gsap.to(video, { opacity: 1, duration: 0.5, ease: "power2.out" });
     }, { once: true });
 
     const playVideo = () => {
-      const promise = video.play();
-      if (promise !== undefined) {
-        promise.catch(() => {
-          const retry = () => {
-            video.play();
-            document.removeEventListener('touchstart', retry);
-            document.removeEventListener('click', retry);
-          };
-          document.addEventListener('touchstart', retry, { once: true });
-          document.addEventListener('click', retry, { once: true });
-        });
-      }
+      video.play().catch(() => {
+        const retry = () => video.play();
+        document.addEventListener('touchstart', retry, { once: true });
+        document.addEventListener('click', retry, { once: true });
+      });
     };
 
-    if (video.readyState >= 3) {
+    if (video.readyState >= 2) {
       playVideo();
     } else {
       video.addEventListener('canplay', playVideo, { once: true });
@@ -379,19 +287,6 @@ function lazyLoadSectionVideos(section) {
 }
 
 function unloadSectionVideos(section) {
-  const isMobile = window.innerWidth <= 625;
-  
-  // Sur mobile : pause les vidéos et masque-les (ne les supprime pas)
-  if (isMobile) {
-    section.classList.remove('active-section');
-    section.querySelectorAll('.video-container video').forEach(video => {
-      video.pause();
-      gsap.to(video, { opacity: 0, duration: 0.3, ease: "power2.out" });
-    });
-    return;
-  }
-  
-  // Sur desktop : supprime les vidéos pour libérer la mémoire
   section.querySelectorAll('.video-container video').forEach(video => {
     video.pause();
     video.removeAttribute('src');

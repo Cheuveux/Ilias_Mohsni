@@ -36,40 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ✅ Attends que scroll.js charge la première vidéo, PUIS masque le loader
+  // Loader simple : se cache après 2s
   const loader = document.getElementById('intro-loader');
-  if (!loader) return;
-
-  const start = Date.now();
-  let videoLoaded = false;
-  let checkAttempts = 0;
-  const maxAttempts = 30; // 3 secondes max (30 * 100ms)
-
-  // Vérifie toutes les 100ms si la première vidéo est chargée
-  const checkVideo = setInterval(() => {
-    checkAttempts++;
-    const firstVideo = document.querySelector('.video-production .swiper-slide video, .video-production video');
-    
-    if ((firstVideo && firstVideo.readyState >= 2) || checkAttempts >= maxAttempts) {
-      videoLoaded = true;
-      clearInterval(checkVideo);
-      hideLoader();
-    }
-  }, 100);
-
-  function hideLoader() {
-    const elapsed = Date.now() - start;
-    const wait = Math.max(0, 2000 - elapsed); // Min 2s
-    
+  if (loader) {
     setTimeout(() => {
       loader.style.opacity = 0;
       setTimeout(() => {
         loader.style.display = 'none';
-        if (window.enableScrollAfterLoad) {
-          window.enableScrollAfterLoad();
-        }
       }, 600);
-    }, wait);
+    }, 2000);
   }
 });
 
