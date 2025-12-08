@@ -183,7 +183,9 @@ footer .scrolling-content > * {
  }
 
 .swiper {
-   margin-top: 10vw;
+   margin-top: 0;
+   top: 0;
+   height: 80vh;
 }
 
  .swiper-slide > img {
@@ -193,11 +195,15 @@ footer .scrolling-content > * {
  }
 
  .lefted {
-   left: 3%;
+   left: 50%;
+   top: 15%;
+   transform: translateX(-50%);
  }
 
  .righted {
-   right: 3%;
+   left: 50%;
+   bottom: 25%;
+   transform: translateX(-50%);
  }
 
  footer {
