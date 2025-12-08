@@ -39,28 +39,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const loader = document.getElementById('intro-loader');
   const enterBtn = document.getElementById('enter-site-btn');
   const isMobile = window.innerWidth <= 625;
+  const hasEntered = sessionStorage.getItem('hasEnteredSite');
+
+  // Fonction pour lancer les vidéos et cacher le loader
+  function enterSite() {
+    console.log('🚀 Entrée sur le site - Lancement des vidéos');
+    
+    // Lance TOUTES les vidéos existantes
+    document.querySelectorAll('video').forEach(video => {
+      video.muted = true;
+      video.play().then(() => {
+        console.log('✅ Vidéo lancée:', video.src);
+      }).catch(err => {
+        console.log('❌ Autoplay bloqué:', err);
+      });
+    });
+
+    // Cache le loader
+    loader.style.opacity = 0;
+    setTimeout(() => {
+      loader.style.display = 'none';
+      
+      // ✅ Scroll automatique vers la première section (video-production)
+      const firstSection = document.getElementById('video-production');
+      if (firstSection) {
+        window.scrollTo({
+          top: firstSection.offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }, 600);
+
+    // ✅ Mémorise que l'utilisateur est entré sur le site
+    sessionStorage.setItem('hasEnteredSite', 'true');
+  }
 
   if (isMobile && enterBtn) {
-    // ✅ Sur mobile : attend le clic sur "ENTER"
-    enterBtn.addEventListener('click', () => {
-      console.log('🚀 Bouton ENTER cliqué - Lancement des vidéos');
-      
-      // Lance TOUTES les vidéos existantes
-      document.querySelectorAll('video').forEach(video => {
-        video.muted = true;
-        video.play().then(() => {
-          console.log('✅ Vidéo lancée:', video.src);
-        }).catch(err => {
-          console.log('❌ Autoplay bloqué:', err);
-        });
-      });
-
-      // Cache le loader
-      loader.style.opacity = 0;
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 600);
-    });
+    // ✅ Si l'utilisateur a déjà cliqué ENTER, cache directement le loader
+    if (hasEntered) {
+      enterSite();
+    } else {
+      // ✅ Sur mobile : attend le clic sur "ENTER" la première fois
+      enterBtn.addEventListener('click', enterSite);
+    }
   } else {
     // ✅ Sur desktop : cache le loader après 2s (comportement actuel)
     setTimeout(() => {
