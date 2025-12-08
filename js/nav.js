@@ -51,20 +51,28 @@ if(activeLink){
 }
 
 // ✅ Sur mobile : clic sur Work ramène en haut de la page
-const workLink = document.querySelector('.nav-item[href="index.html"]');
-if (workLink && window.innerWidth <= 625) {
-  workLink.addEventListener('click', (e) => {
-    // Toujours ramener en haut sur mobile quand on clique sur Work
-    e.preventDefault();
-    
-    // Si on est sur une autre page, redirige vers index.html
-    if (!currentPage.endsWith('index.html') && currentPage !== '/') {
-      window.location.href = 'index.html';
-    } else {
-      // Si déjà sur index.html, scroll vers le haut
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+if (window.innerWidth <= 625) {
+  console.log('📱 Mode mobile détecté, setup scroll to top pour Work');
+  
+  const workLinks = document.querySelectorAll('.nav-item');
+  workLinks.forEach(link => {
+    // Cherche le lien qui contient "Work" dans le texte
+    if (link.textContent.trim().toLowerCase() === 'work') {
+      console.log('✅ Lien Work trouvé:', link);
+      
+      link.addEventListener('click', (e) => {
+        console.log('👆 Clic sur Work détecté');
+        console.log('Current page:', currentPage);
+        
+        // Si on est déjà sur index.html
+        if (currentPage.includes('index.html') || currentPage === '/' || currentPage === '') {
+          console.log('⬆️ Scroll vers le haut');
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
       });
     }
   });

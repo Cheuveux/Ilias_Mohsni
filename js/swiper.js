@@ -1,8 +1,9 @@
 function removeDesktopBonusSlides() {
-  if (window.innerWidth <= 1050) {
+  // ✅ Utilise le même breakpoint que partout ailleurs (625px)
+  if (window.innerWidth <= 625) {
     document.querySelectorAll('.swiper-slide.desktop-only').forEach(slide => slide.remove());
   }
-  if (window.innerWidth >= 1050) {
+  if (window.innerWidth > 625) {
     document.querySelectorAll('.swiper-slide.mobile-only').forEach(slide => slide.remove());
   }
 }
