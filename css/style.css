@@ -108,26 +108,89 @@ html, body {
   100% { transform: rotate(360deg); }
 }
 
-.enter-btn {
-  display: none; /* Caché par défaut (desktop) */
-  padding: 1rem 3rem;
-  font-size: 1.5rem;
-  font-weight: 700;
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: rgb(222, 221, 201); }
+}
+
+@keyframes fade-in-out {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.loader-name {
+  font-size: 2.5rem;
+  font-weight: 300;
   font-family: var(--body-font);
-  color: rgb(4, 14, 2);
-  background: rgb(222, 221, 201);
-  border: 3px solid rgb(235, 141, 0);
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  color: rgb(222, 221, 201);
+  letter-spacing: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid rgb(222, 221, 201);
+  width: 0;
+  animation: typewriter 2s steps(13) forwards, blink-caret 0.75s step-end infinite;
+}
+
+.loading-text {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  font-family: var(--body-font);
+  color: rgb(222, 221, 201);
   letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: fade-in-out 1.5s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+
+.loader-content img {
+  width: 250px;
+  height: 250px;
+  margin: 2rem 0;
+}
+
+.enter-btn {
+  padding: 0.8rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: var(--body-font);
+  color: rgb(222, 221, 201);
+  background: transparent;
+  border: 2px solid rgb(222, 221, 201);
+  border-radius: 5px;
+  cursor: pointer;
+  letter-spacing: 4px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.enter-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.enter-btn:hover {
+  background: rgb(222, 221, 201);
+  color: rgb(4, 14, 2);
 }
 
 .enter-btn:active {
   transform: scale(0.95);
-  background: rgb(235, 141, 0);
-  color: rgb(222, 221, 201);
 }
+
 
 section {
   margin-bottom: 2rem;
@@ -246,13 +309,25 @@ video::-webkit-media-controls-start-playback-button {
 
 @media screen and (max-width:625px){
 
-  /* ✅ Affiche le bouton ENTER uniquement sur mobile */
-  .enter-btn {
-    display: block;
+  .loader-name {
+    font-size: 1.8rem;
+    letter-spacing: 5px;
   }
-  .loader-content svg {
-    width: 100px;
-    height: 100px;
+
+  .loader-content img {
+    width: 200px;
+    height: 200px;
+    margin: 1.5rem 0;
+  }
+
+  .enter-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem 2rem;
+  }
+
+  .loading-text {
+    font-size: 0.75rem;
+    margin-top: 2rem;
   }
 
   header {

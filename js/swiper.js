@@ -43,32 +43,47 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const loader = document.getElementById('intro-loader');
+  const loadingText = document.querySelector('.loading-text');
   const enterBtn = document.getElementById('enter-site-btn');
   const isMobile = window.innerWidth <= 625;
-  const hasEntered = sessionStorage.getItem('hasEnteredSite');
+  
+  let isLoaded = false;
+  let minTimeElapsed = false;
+
+  // Cache le texte "Loading..." et affiche le bouton ENTER
+  function showEnterButton() {
+    if (isLoaded && minTimeElapsed) {
+      if (loadingText) {
+        loadingText.style.opacity = 0;
+        setTimeout(() => {
+          loadingText.style.display = 'none';
+        }, 300);
+      }
+      if (enterBtn) {
+        enterBtn.classList.add('visible');
+      }
+    }
+  }
 
   // Fonction pour lancer les vidéos et cacher le loader
   function enterSite() {
     console.log('🚀 Entrée sur le site - Lancement des vidéos');
     
-    // Lance TOUTES les vidéos existantes
+    // Lance TOUTES les vidéos
     document.querySelectorAll('video').forEach(video => {
       video.muted = true;
-      video.play().then(() => {
-        console.log('✅ Vidéo lancée:', video.src);
-      }).catch(err => {
-        console.log('❌ Autoplay bloqué:', err);
+      video.play().catch(() => {
+        console.log('Autoplay bloqué');
       });
     });
 
-    // Cache le loader
+    // Cache le loader complet
     loader.style.opacity = 0;
     setTimeout(() => {
       loader.style.display = 'none';
       
-      // ✅ Scroll automatique vers la première section (video-production)
       const firstSection = document.getElementById('video-production');
-      if (firstSection) {
+      if (firstSection && isMobile) {
         window.scrollTo({
           top: firstSection.offsetTop,
           behavior: 'smooth'
@@ -76,26 +91,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 600);
 
-    // ✅ Mémorise que l'utilisateur est entré sur le site
     sessionStorage.setItem('hasEnteredSite', 'true');
   }
 
-  if (isMobile && enterBtn) {
-    // ✅ Si l'utilisateur a déjà cliqué ENTER, cache directement le loader
-    if (hasEntered) {
-      enterSite();
-    } else {
-      // ✅ Sur mobile : attend le clic sur "ENTER" la première fois
-      enterBtn.addEventListener('click', enterSite);
-    }
-  } else {
-    // ✅ Sur desktop : cache le loader après 2s (comportement actuel)
-    setTimeout(() => {
-      loader.style.opacity = 0;
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 600);
-    }, 2000);
+  // Minimum 3 secondes d'affichage
+  setTimeout(() => {
+    minTimeElapsed = true;
+    showEnterButton();
+  }, 3000);
+
+  // Détection du chargement complet
+  window.addEventListener('load', () => {
+    isLoaded = true;
+    showEnterButton();
+  });
+
+  // Clic sur le bouton ENTER
+  if (enterBtn) {
+    enterBtn.addEventListener('click', enterSite);
   }
 });
 
