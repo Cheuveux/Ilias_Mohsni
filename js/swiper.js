@@ -48,8 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMobile = window.innerWidth <= 625;
   const hasVisited = sessionStorage.getItem('hasVisitedSite');
   
-  // ✅ Si déjà visité, cache directement le loader
-  if (hasVisited) {
+  // ✅ Sur desktop : cache le loader si déjà visité
+  // ✅ Sur mobile : toujours afficher le loader
+  if (hasVisited && !isMobile) {
     loader.style.display = 'none';
   }
 
@@ -79,7 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 600);
 
-    sessionStorage.setItem('hasVisitedSite', 'true');
+    // ✅ Mémorise uniquement sur desktop
+    if (!isMobile) {
+      sessionStorage.setItem('hasVisitedSite', 'true');
+    }
   }
 
   // Clic sur le bouton ENTER

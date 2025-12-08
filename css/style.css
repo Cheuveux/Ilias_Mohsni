@@ -283,14 +283,10 @@ video::-webkit-media-controls-start-playback-button {
   display: none !important;
 }
 
-/* Optimisation des performances pour les animations GSAP */
-.swiper-slide,
-.swiper-slide > video {
-  will-change: opacity, transform;
-}
+/* Optimisation des performances pour les animations GSAP - will-change supprimé pour économiser la mémoire */
 .content-title,
 .title-section {
-  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .swiper-pagination-bullet {

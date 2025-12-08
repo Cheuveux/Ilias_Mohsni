@@ -1,14 +1,18 @@
 // Ajoute des événements au hover/clic sur les vidéos .video-lignes
 function setupVideoLignesInteractions() {
   const videos = document.querySelectorAll('.video-container.video-lignes video');
+  console.log('🎬 Setup interactions pour', videos.length, 'vidéos lignes-brandt');
   
   videos.forEach(video => {
     // Évite d'ajouter les listeners plusieurs fois
     if (video.dataset.interactionsSetup) return;
     video.dataset.interactionsSetup = 'true';
+    
+    console.log('✅ Interactions ajoutées pour vidéo:', video.src);
 
     // Desktop : play au hover
     video.addEventListener('mouseenter', () => {
+      console.log('👁️ Mouseenter détecté sur vidéo');
       video.play();
       gsap.to(video, {
         scale: 1.12,

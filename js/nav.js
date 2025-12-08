@@ -54,9 +54,14 @@ if(activeLink){
 const workLink = document.querySelector('.nav-item[href="index.html"]');
 if (workLink && window.innerWidth <= 625) {
   workLink.addEventListener('click', (e) => {
-    // Si on est déjà sur index.html
-    if (currentPage.endsWith('index.html') || currentPage === '/') {
-      e.preventDefault();
+    // Toujours ramener en haut sur mobile quand on clique sur Work
+    e.preventDefault();
+    
+    // Si on est sur une autre page, redirige vers index.html
+    if (!currentPage.endsWith('index.html') && currentPage !== '/') {
+      window.location.href = 'index.html';
+    } else {
+      // Si déjà sur index.html, scroll vers le haut
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
