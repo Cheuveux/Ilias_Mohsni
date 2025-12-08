@@ -36,9 +36,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Loader simple : se cache après 2s
   const loader = document.getElementById('intro-loader');
-  if (loader) {
+  const enterBtn = document.getElementById('enter-site-btn');
+  const isMobile = window.innerWidth <= 625;
+
+  if (isMobile && enterBtn) {
+    // ✅ Sur mobile : attend le clic sur "ENTER"
+    enterBtn.addEventListener('click', () => {
+      console.log('🚀 Bouton ENTER cliqué - Lancement des vidéos');
+      
+      // Lance TOUTES les vidéos existantes
+      document.querySelectorAll('video').forEach(video => {
+        video.muted = true;
+        video.play().then(() => {
+          console.log('✅ Vidéo lancée:', video.src);
+        }).catch(err => {
+          console.log('❌ Autoplay bloqué:', err);
+        });
+      });
+
+      // Cache le loader
+      loader.style.opacity = 0;
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 600);
+    });
+  } else {
+    // ✅ Sur desktop : cache le loader après 2s (comportement actuel)
     setTimeout(() => {
       loader.style.opacity = 0;
       setTimeout(() => {
