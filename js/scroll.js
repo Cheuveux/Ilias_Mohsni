@@ -263,13 +263,22 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     // ✅ Charge TOUTES les premières vidéos de chaque section pour éviter le chargement tardif
+    const isMobileDevice = window.innerWidth <= 625;
+    
     sections.forEach((section, index) => {
-        // Charge la première slide de chaque swiper
-        const firstSlide = section.querySelector('.swiper-slide:first-child');
-        if (firstSlide) {
-            const videoContainer = firstSlide.querySelector('.video-container');
-            if (videoContainer && !videoContainer.querySelector('video')) {
-                const isMobileDevice = window.innerWidth <= 625;
+        // Sur mobile : charge TOUTES les vidéos de la section (y compris .mobile-only)
+        // Sur desktop : charge seulement la première slide
+        const slidesToLoad = isMobileDevice 
+            ? section.querySelectorAll('.swiper-slide') 
+            : [section.querySelector('.swiper-slide:first-child')];
+        
+        slidesToLoad.forEach(slide => {
+            if (!slide) return;
+            
+            const videoContainers = slide.querySelectorAll('.video-container');
+            videoContainers.forEach(videoContainer => {
+                if (videoContainer.querySelector('video')) return;
+                
                 const src = isMobileDevice ? videoContainer.dataset.srcMobile : videoContainer.dataset.srcDesktop;
                 if (src) {
                     const video = document.createElement('video');
@@ -300,8 +309,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         video.play().catch(() => console.log('Autoplay initial bloqué'));
                     }, 100);
                 }
-            }
-        }
+            });
+        });
     });
     
     isInitialLoadComplete = true;
