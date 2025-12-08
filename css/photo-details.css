@@ -189,8 +189,8 @@ footer .scrolling-content > * {
 }
 
  .swiper-slide > img {
-   width: auto;
-   height: 30vh;
+   width: 100vw ;
+   height: auto;
    object-fit: cover;
  }
 

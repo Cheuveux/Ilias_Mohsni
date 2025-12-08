@@ -24,30 +24,55 @@ function handleVideos(swiperEl) {
           video.muted = true;
           video.loop = true;
           video.playsInline = true;
-          video.preload = "none";
+          video.preload = "auto";
+          video.setAttribute('webkit-playsinline', 'true');
+          video.setAttribute('x5-playsinline', 'true');
+          video.controls = false;
           video.className = isMobile ? 'format-bigo' : 'format-ordi';
           video.style.opacity = 0;
           container.appendChild(video);
 
-          // GSAP apparition
+          // Force le play immédiatement et de manière agressive
+          const forcePlay = () => {
+            video.muted = true;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.then(() => {
+                console.log('Video playing successfully');
+              }).catch((error) => {
+                console.log('Autoplay blocked, retry on user interaction:', error);
+                // Retry sur n'importe quelle interaction
+                ['touchstart', 'touchend', 'click'].forEach(eventType => {
+                  document.addEventListener(eventType, function retry() {
+                    video.play().then(() => {
+                      ['touchstart', 'touchend', 'click'].forEach(type => {
+                        document.removeEventListener(type, retry);
+                      });
+                    });
+                  }, { once: true });
+                });
+              });
+            }
+          };
+
+          // GSAP apparition + force play
           video.addEventListener('loadeddata', () => {
             gsap.to(video, { opacity: 1, duration: 0.3, ease: "power2.out" });
+            forcePlay();
           });
 
-          // Lecture automatique sur mobile après interaction utilisateur
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              const playOnTouch = () => {
-                video.play();
-                window.removeEventListener('touchstart', playOnTouch);
-              };
-              window.addEventListener('touchstart', playOnTouch);
-            });
-          }
+          // Retry play après un court délai
+          setTimeout(() => forcePlay(), 100);
+          
         } else {
           const video = container.querySelector('video');
-          video.play();
+          video.muted = true;
+          video.play().catch(() => {
+            // Retry on interaction
+            ['touchstart', 'click'].forEach(eventType => {
+              document.addEventListener(eventType, () => video.play(), { once: true });
+            });
+          });
         }
       } else if (slides.length > 1) {
         // Retire la vidéo des containers inactifs
