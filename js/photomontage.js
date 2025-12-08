@@ -61,6 +61,16 @@ function setupVideoLignesInteractions() {
 // Lance la fonction au DOMContentLoaded et aussi après que scroll.js charge les vidéos
 window.addEventListener('DOMContentLoaded', () => {
   setupVideoLignesInteractions();
+  
+  // ✅ Relance après 1 seconde pour être sûr que les vidéos sont chargées
+  setTimeout(() => {
+    setupVideoLignesInteractions();
+  }, 1000);
+  
+  // ✅ Relance après 3 secondes (au cas où le chargement est lent)
+  setTimeout(() => {
+    setupVideoLignesInteractions();
+  }, 3000);
 });
 
 // ✅ Observer uniquement sur la section photomontage
@@ -71,3 +81,10 @@ if (photomontageSection) {
   });
   observer.observe(photomontageSection, { childList: true, subtree: true });
 }
+
+// ✅ Écoute aussi l'événement window.load pour être sûr
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    setupVideoLignesInteractions();
+  }, 500);
+});

@@ -260,6 +260,12 @@ section {
   pointer-events: none;
 }
 
+/* ✅ Exception : les vidéos lignes-brandt doivent être interactives */
+.lignes-brandt .video-container.video-lignes video {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
 /* ✅ Force la suppression des contrôles vidéo sur mobile */
 video::-webkit-media-controls {
   display: none !important;
@@ -332,6 +338,13 @@ video::-webkit-media-controls-start-playback-button {
   .enter-btn {
     font-size: 0.9rem;
     padding: 0.7rem 2rem;
+  }
+
+  /* ✅ Titres toujours visibles sur mobile */
+  .title-section,
+  .content-title {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
   }
 
   header {

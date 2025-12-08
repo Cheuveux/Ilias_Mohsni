@@ -49,6 +49,21 @@ if(activeLink){
     easing: 'easeOutExpo'
   });
 }
+
+// ✅ Sur mobile : clic sur Work ramène en haut de la page
+const workLink = document.querySelector('.nav-item[href="index.html"]');
+if (workLink && window.innerWidth <= 625) {
+  workLink.addEventListener('click', (e) => {
+    // Si on est déjà sur index.html
+    if (currentPage.endsWith('index.html') || currentPage === '/') {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
 });
 
 

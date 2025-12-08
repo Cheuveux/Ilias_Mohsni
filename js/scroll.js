@@ -6,8 +6,8 @@ let initialScrollCaptured = false;
 let isInitialLoadComplete = false;
 let scrollTimeout = null;
 
-// Clone de la première section pour boucle infinie
-if (sections.length > 0) {
+// Clone de la première section pour boucle infinie (desktop uniquement)
+if (sections.length > 0 && window.innerWidth > 625) {
     const firstSectionClone = sections[0].cloneNode(true);
     firstSectionClone.setAttribute('id', 'first-section-clone');
     sections[sections.length - 1].parentNode.appendChild(firstSectionClone);
@@ -122,9 +122,12 @@ window.addEventListener('keydown', (e) => {
 });
 
 // ---------------------
-// ANIMATION DES TITRES
+// ANIMATION DES TITRES (desktop uniquement)
 // ---------------------
 function animateSectionTitles(section) {
+    // ✅ Pas d'animation sur mobile
+    if (window.innerWidth <= 625) return;
+    
     // Animate .title-section (depuis la gauche)
     const title = section.querySelector('.title-section');
     if (title) {
@@ -149,8 +152,10 @@ function animateSectionTitles(section) {
     });
 }
 
-// Fonction pour cacher les titres d'une section
+// Fonction pour cacher les titres d'une section (desktop uniquement)
 function hideSectionTitles(section) {
+    if (window.innerWidth <= 625) return;
+    
     const title = section.querySelector('.title-section');
     if (title) {
         gsap.set(title, { x: -100, opacity: 0 });
@@ -235,23 +240,26 @@ function scrollToSection(index) {
 }
 
 // ---------------------
-// AU CHARGEMENT, CACHE LES TITRES
+// AU CHARGEMENT, CACHE LES TITRES (desktop uniquement)
 // ---------------------
 window.addEventListener('DOMContentLoaded', () => {
     // Scroll to top au chargement
     window.scrollTo(0, 0);
     
-    document.querySelectorAll('.title-section').forEach(el => {
-        gsap.set(el, { x: -100, opacity: 0 });
-    });
-    document.querySelectorAll('.content-title').forEach(el => {
-        gsap.set(el, { x: 100, opacity: 0 });
-    });
-    
-    // Anime la première section au chargement
-    if (sections[0]) {
-      animateSectionTitles(sections[0]);
-      lazyLoadSectionVideos(sections[0]);
+    // ✅ Cache les titres uniquement sur desktop
+    if (window.innerWidth > 625) {
+        document.querySelectorAll('.title-section').forEach(el => {
+            gsap.set(el, { x: -100, opacity: 0 });
+        });
+        document.querySelectorAll('.content-title').forEach(el => {
+            gsap.set(el, { x: 100, opacity: 0 });
+        });
+        
+        // Anime la première section au chargement
+        if (sections[0]) {
+          animateSectionTitles(sections[0]);
+          lazyLoadSectionVideos(sections[0]);
+        }
     }
     
     // ✅ Charge TOUTES les premières vidéos de chaque section pour éviter le chargement tardif
