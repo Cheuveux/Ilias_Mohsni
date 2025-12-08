@@ -83,8 +83,8 @@ window.addEventListener('touchend', (e) => {
     const deltaY = touchStartY - touchEndY;
     const touchDuration = Date.now() - touchStartTime;
     
-    // Ignore les petits swipes verticaux et les touches trop courtes (probablement des clics)
-    if (Math.abs(deltaY) < 50 || touchDuration < 100) return;
+    // Ignore les petits swipes verticaux (réduit à 30px) et les touches très courtes
+    if (Math.abs(deltaY) < 30 || touchDuration < 50) return;
     
     if (deltaY > 0) scrollToSection(currentIndex + 1);
     else scrollToSection(currentIndex - 1);
