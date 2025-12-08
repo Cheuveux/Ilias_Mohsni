@@ -253,13 +253,17 @@ function lazyLoadSectionVideos(section) {
     const isMobile = window.innerWidth <= 625;
     const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
     if (!src) return;
+    
     const video = document.createElement('video');
     video.src = src;
     video.autoplay = true;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = "metadata"; // Changé de "none" à "metadata" pour un chargement plus rapide
+    video.preload = "auto"; // ✅ Force le chargement complet
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
+    video.controls = false;
     video.className = isMobile ? 'format-bigo' : 'format-ordi';
     video.style.opacity = 0;
     container.appendChild(video);
@@ -267,18 +271,30 @@ function lazyLoadSectionVideos(section) {
     // GSAP apparition
     video.addEventListener('loadeddata', () => {
       gsap.to(video, { opacity: 1, duration: 1, ease: "power2.out" });
-    });
+    }, { once: true }); // ✅ Se déclenche une seule fois
 
-    // Lecture automatique sur mobile après interaction utilisateur
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        const playOnTouch = () => {
-          video.play();
-          window.removeEventListener('touchstart', playOnTouch);
-        };
-        window.addEventListener('touchstart', playOnTouch);
-      });
+    // Force le play de manière agressive
+    const playVideo = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // Retry sur interaction
+          const retry = () => {
+            video.play();
+            document.removeEventListener('touchstart', retry);
+            document.removeEventListener('click', retry);
+          };
+          document.addEventListener('touchstart', retry, { once: true });
+          document.addEventListener('click', retry, { once: true });
+        });
+      }
+    };
+
+    // Lance le play dès que possible
+    if (video.readyState >= 3) {
+      playVideo();
+    } else {
+      video.addEventListener('canplay', playVideo, { once: true });
     }
   });
 }

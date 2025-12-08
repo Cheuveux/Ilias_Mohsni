@@ -36,21 +36,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Loader : attend 2s minimum, puis active le scroll
+  // ✅ Attends que scroll.js charge la première vidéo, PUIS masque le loader
   const loader = document.getElementById('intro-loader');
-  if (loader) {
-    const start = Date.now();
+  if (!loader) return;
+
+  const start = Date.now();
+  let videoLoaded = false;
+
+  // Vérifie toutes les 100ms si la première vidéo est chargée
+  const checkVideo = setInterval(() => {
+    const firstVideo = document.querySelector('.video-production .swiper-slide-active video, .video-production .swiper-slide video');
+    
+    if (firstVideo && firstVideo.readyState >= 3) { // HAVE_FUTURE_DATA ou plus
+      videoLoaded = true;
+      clearInterval(checkVideo);
+      hideLoader();
+    }
+  }, 100);
+
+  // Timeout de sécurité : masque le loader après 5s max même si vidéo pas chargée
+  setTimeout(() => {
+    if (!videoLoaded) {
+      clearInterval(checkVideo);
+      hideLoader();
+    }
+  }, 5000);
+
+  function hideLoader() {
+    const elapsed = Date.now() - start;
+    const wait = Math.max(0, 2000 - elapsed); // Min 2s
+    
     setTimeout(() => {
-      const elapsed = Date.now() - start;
-      const wait = Math.max(0, 2000 - elapsed);
       loader.style.opacity = 0;
       setTimeout(() => {
         loader.style.display = 'none';
         if (window.enableScrollAfterLoad) {
           window.enableScrollAfterLoad();
         }
-      }, 600 + wait);
-    }, 2000);
+      }, 600);
+    }, wait);
   }
 });
 

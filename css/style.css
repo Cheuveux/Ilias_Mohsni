@@ -160,6 +160,16 @@ section {
   pointer-events: none;
 }
 
+/* Optimisation des performances pour les animations GSAP */
+.swiper-slide,
+.swiper-slide > video {
+  will-change: opacity, transform;
+}
+.content-title,
+.title-section {
+  will-change: transform, opacity;
+}
+
 .swiper-pagination-bullet {
     width: 12px;
     height: 12px;

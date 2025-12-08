@@ -63,9 +63,11 @@ window.addEventListener('DOMContentLoaded', () => {
   setupVideoLignesInteractions();
 });
 
-// Observer pour relancer les interactions si nouvelles vidéos sont créées
-const observer = new MutationObserver(() => {
-  setupVideoLignesInteractions();
-});
-
-observer.observe(document.body, { childList: true, subtree: true });
+// ✅ Observer uniquement sur la section photomontage
+const photomontageSection = document.getElementById('photomontage');
+if (photomontageSection) {
+  const observer = new MutationObserver(() => {
+    setupVideoLignesInteractions();
+  });
+  observer.observe(photomontageSection, { childList: true, subtree: true });
+}
