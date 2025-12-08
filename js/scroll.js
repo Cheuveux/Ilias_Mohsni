@@ -91,7 +91,7 @@ window.addEventListener('touchend', (e) => {
         const deltaY = Math.abs(touchStartY - touchEndY);
         
         // Si le mouvement est plus horizontal que vertical, ignore (laisse Swiper gérer)
-        if (deltaX > deltaY) {
+        if (deltaX > deltaY * 0.7) {
             return;
         }
     }
@@ -100,7 +100,7 @@ window.addEventListener('touchend', (e) => {
     const touchDuration = Date.now() - touchStartTime;
     
     // Ignore les petits swipes verticaux et les touches très courtes
-    if (Math.abs(deltaY) < 30 || touchDuration < 50) return;
+    if (Math.abs(deltaY) < 50 || touchDuration < 100) return;
     
     if (deltaY > 0) scrollToSection(currentIndex + 1);
     else scrollToSection(currentIndex - 1);

@@ -95,6 +95,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  position: relative;
 }
 
 .loader-content svg {
@@ -171,15 +172,15 @@ html, body {
   letter-spacing: 4px;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
 }
 
-.enter-btn.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+.enter-btn:hover {
+  background: rgb(222, 221, 201);
+  color: rgb(4, 14, 2);
+}
+
+.enter-btn:active {
+  transform: scale(0.95);
 }
 
 .enter-btn:hover {
@@ -323,11 +324,6 @@ video::-webkit-media-controls-start-playback-button {
   .enter-btn {
     font-size: 0.9rem;
     padding: 0.7rem 2rem;
-  }
-
-  .loading-text {
-    font-size: 0.75rem;
-    margin-top: 2rem;
   }
 
   header {

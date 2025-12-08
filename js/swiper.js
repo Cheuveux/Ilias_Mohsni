@@ -30,11 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
       touchRatio: 2,
       touchAngle: 45,
       // ✅ Amélioration pour différencier scroll horizontal et vertical
-      threshold: 5,
+      threshold: 10,
       resistance: true,
       resistanceRatio: 0.85,
       touchStartPreventDefault: false,
       touchMoveStopPropagation: true,
+      allowTouchMove: true,
       keyboard: {
         enabled: true,
         onlyInViewport: true,
@@ -43,26 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const loader = document.getElementById('intro-loader');
-  const loadingText = document.querySelector('.loading-text');
   const enterBtn = document.getElementById('enter-site-btn');
   const isMobile = window.innerWidth <= 625;
+  const hasVisited = sessionStorage.getItem('hasVisitedSite');
   
-  let isLoaded = false;
-  let minTimeElapsed = false;
-
-  // Cache le texte "Loading..." et affiche le bouton ENTER
-  function showEnterButton() {
-    if (isLoaded && minTimeElapsed) {
-      if (loadingText) {
-        loadingText.style.opacity = 0;
-        setTimeout(() => {
-          loadingText.style.display = 'none';
-        }, 300);
-      }
-      if (enterBtn) {
-        enterBtn.classList.add('visible');
-      }
-    }
+  // ✅ Si déjà visité, cache directement le loader
+  if (hasVisited) {
+    loader.style.display = 'none';
   }
 
   // Fonction pour lancer les vidéos et cacher le loader
@@ -91,20 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 600);
 
-    sessionStorage.setItem('hasEnteredSite', 'true');
+    sessionStorage.setItem('hasVisitedSite', 'true');
   }
-
-  // Minimum 3 secondes d'affichage
-  setTimeout(() => {
-    minTimeElapsed = true;
-    showEnterButton();
-  }, 3000);
-
-  // Détection du chargement complet
-  window.addEventListener('load', () => {
-    isLoaded = true;
-    showEnterButton();
-  });
 
   // Clic sur le bouton ENTER
   if (enterBtn) {
