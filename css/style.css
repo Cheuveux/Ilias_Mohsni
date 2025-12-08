@@ -272,7 +272,7 @@ section {
   }
 
   .video-container {
-     width: 100%;
+    width: 100%;
     height: 100%;
     position: relative;
     display: flex;
@@ -359,7 +359,7 @@ section {
 .first-montage video,
 .first-montage.desktop-only video {
   display: block;
-  width: 37vw;
+  width: 33vw;
 }
 
 .content-title.first-montage.desktop-only {
@@ -376,14 +376,14 @@ section {
 
 .lignes-brandt {
     display: flex;
-    
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 1rem;
+    gap: 0.5rem;
     height: 100%;
     background: transparent;
-    margin: 2rem 0rem;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     z-index: 0;
@@ -393,19 +393,22 @@ section {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 15px;
-    
-
+    gap: 2rem;
   }
-   .lignes-brandt .desktop-only,
-  .lignes-brandt .video-lignes {
+  .lignes-brandt .video-container.video-lignes {
     width: 45vw;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+  }
+  .lignes-brandt .video-container.video-lignes video {
+    width: 100%;
     height: auto;
     object-fit: contain;
     border-radius: 8px;
-    margin: 0;
     display: block;
-    z-index: 0;
   }
 
  
@@ -450,21 +453,21 @@ section {
     .lignes-brandt{
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
     width: 100%;
     max-width: 100%;
-    height: 100%; /* Ajuste selon le rendu souhaité */
+    height: 100%;
     background: transparent;
     padding: 0;
-    margin: 1rem 0rem;
+    margin: 0;
     box-sizing: border-box;
   }
   .ordi-part1 {
     flex-direction: column;
   }
-  .lignes-brandt .video-lignes {
+  .lignes-brandt .video-container.video-lignes {
     display: flex;
     width: 100%;
     max-width: 100%;
@@ -474,6 +477,11 @@ section {
     background: #000;
     margin: 0;
     flex-shrink: 0;
+  }
+  .lignes-brandt .video-container.video-lignes video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
 

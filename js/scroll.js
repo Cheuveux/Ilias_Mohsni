@@ -36,17 +36,21 @@ function enableScroll() {
 // ---------------------
 // 🎡 GESTION DU SCROLL SOURIS
 // ---------------------
-let wheelTimeout;
+let lastWheelTime = 0;
 window.addEventListener("wheel", (e) => {
     if (isScrolling || sections.length === 0) return;
     if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
 
-    if (wheelTimeout) return;
-    wheelTimeout = setTimeout(() => wheelTimeout = null, 200);
+    // Bloque les petits deltas du trackpad (< 15)
+    if (Math.abs(e.deltaY) < 5) return;
 
+    const now = Date.now();
+    if (now - lastWheelTime < 800) return;
+    lastWheelTime = now;
+    
     if (e.deltaY > 0) scrollToSection(currentIndex + 1);
     else if (e.deltaY < 0) scrollToSection(currentIndex - 1);
-});
+}, { passive: true });
 
 // ---------------------
 // 📱 GESTION DU TOUCH MOBILE
@@ -253,20 +257,24 @@ function unloadSectionVideos(section) {
 }
 
 window.addEventListener('pageshow', () => {
-  // Trouve la section actuellement visible (celle la plus proche du scroll)
-  let visibleSection = sections[0];
-  let minDist = Math.abs(window.scrollY - sections[0].offsetTop);
-  sections.forEach(section => {
-    const dist = Math.abs(window.scrollY - section.offsetTop);
-    if (dist < minDist) {
-      minDist = dist;
-      visibleSection = section;
+    // Trouve la section actuellement visible (celle la plus proche du scroll)
+    let visibleSection = sections[0];
+    let minDist = Math.abs(window.scrollY - sections[0].offsetTop);
+    let visibleIndex = 0;
+    sections.forEach((section, i) => {
+        const dist = Math.abs(window.scrollY - section.offsetTop);
+        if (dist < minDist) {
+            minDist = dist;
+            visibleSection = section;
+            visibleIndex = i;
+        }
+    });
+    // ✅ Update currentIndex avec la bonne valeur
+    currentIndex = visibleIndex;
+    // Réanime les titres et lazy-load les vidéos de la section visible
+    if (visibleSection) {
+        hideSectionTitles(visibleSection);
+        animateSectionTitles(visibleSection);
+        lazyLoadSectionVideos(visibleSection);
     }
-  });
-
-  // Réanime les titres et lazy-load les vidéos de la section visible
-  if (visibleSection) {
-    animateSectionTitles(visibleSection);
-    lazyLoadSectionVideos(visibleSection);
-  }
 });
