@@ -61,6 +61,7 @@ const isMobile = () => window.innerWidth <= 625;
 let touchStartY = 0;
 let touchEndY = 0;
 let touchStartX = 0;
+let touchEndX = 0;
 let touchStartTime = 0;
 
 window.addEventListener('touchstart', (e) => {
@@ -72,6 +73,7 @@ window.addEventListener('touchstart', (e) => {
 window.addEventListener('touchmove', (e) => {
     if (isScrolling) e.preventDefault();
     touchEndY = e.touches[0].clientY;
+    touchEndX = e.touches[0].clientX;
 }, { passive: false });
 
 window.addEventListener('touchend', (e) => {
@@ -83,11 +85,22 @@ window.addEventListener('touchend', (e) => {
         return; // Ne fait rien si c'est un lien
     }
     
+    // ✅ Vérifie si le touch est dans un swiper (scroll horizontal)
+    if (target.closest('.swiper')) {
+        const deltaX = Math.abs(touchStartX - touchEndX);
+        const deltaY = Math.abs(touchStartY - touchEndY);
+        
+        // Si le mouvement est plus horizontal que vertical, ignore (laisse Swiper gérer)
+        if (deltaX > deltaY) {
+            return;
+        }
+    }
+    
     const deltaY = touchStartY - touchEndY;
     const touchDuration = Date.now() - touchStartTime;
     
     // Ignore les petits swipes verticaux et les touches très courtes
-    if (Math.abs(deltaY) < 10 || touchDuration < 20) return;
+    if (Math.abs(deltaY) < 30 || touchDuration < 50) return;
     
     if (deltaY > 0) scrollToSection(currentIndex + 1);
     else scrollToSection(currentIndex - 1);
@@ -266,9 +279,13 @@ function lazyLoadSectionVideos(section) {
     video.preload = "auto";
     video.setAttribute('webkit-playsinline', 'true');
     video.setAttribute('x5-playsinline', 'true');
+    video.setAttribute('playsinline', 'true');
     video.controls = false;
+    video.disablePictureInPicture = true;
+    video.controlsList = 'nodownload nofullscreen noremoteplayback';
     video.className = isMobile ? 'format-bigo' : 'format-ordi';
     video.style.opacity = 0;
+    video.style.pointerEvents = 'none';
     
     // ✅ Empêche le clic sur la vidéo de déclencher le lien parent
     video.addEventListener('click', (e) => {

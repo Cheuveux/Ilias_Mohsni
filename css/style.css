@@ -182,12 +182,27 @@ section {
   width: 100vw;
   height: 100vh;
   display: block;
-
 }
-
 
 .swiper-slide > video {
   pointer-events: none;
+}
+
+/* ✅ Force la suppression des contrôles vidéo sur mobile */
+video::-webkit-media-controls {
+  display: none !important;
+}
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+video::-webkit-media-controls-panel {
+  display: none !important;
+}
+video::-webkit-media-controls-play-button {
+  display: none !important;
+}
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
 }
 
 /* Optimisation des performances pour les animations GSAP */

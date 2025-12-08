@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
       simulateTouch: true,
       touchRatio: 2,
       touchAngle: 45,
+      // ✅ Amélioration pour différencier scroll horizontal et vertical
+      threshold: 5,
+      resistance: true,
+      resistanceRatio: 0.85,
+      touchStartPreventDefault: false,
+      touchMoveStopPropagation: true,
       keyboard: {
         enabled: true,
         onlyInViewport: true,
