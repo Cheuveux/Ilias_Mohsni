@@ -48,10 +48,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMobile = window.innerWidth <= 625;
   const hasVisited = sessionStorage.getItem('hasVisitedSite');
   
-  // ✅ Si déjà visité, cache directement le loader
-  if (hasVisited) {
-    loader.style.display = 'none';
+  // ✅ Si déjà visité, cache IMMÉDIATEMENT le loader (pas de flash)
+  if (hasVisited && loader) {
+    loader.remove(); // Supprime complètement du DOM
   }
+
+  // ✅ Fait apparaître le bouton ENTER après chargement complet
+  window.addEventListener('load', () => {
+    if (enterBtn && !hasVisited) {
+      setTimeout(() => {
+        enterBtn.classList.add('loaded');
+      }, 500); // Petit délai pour effet smooth
+    }
+  });
 
   // Fonction pour lancer les vidéos et cacher le loader
   function enterSite() {
@@ -66,18 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Cache le loader complet
-    loader.style.opacity = 0;
-    setTimeout(() => {
-      loader.style.display = 'none';
+    if (loader) {
+      loader.style.opacity = 0;
+      setTimeout(() => {
+        loader.remove(); // Supprime du DOM au lieu de juste cacher
+      }, 600);
+    }
       
-      const firstSection = document.getElementById('video-production');
-      if (firstSection && isMobile) {
-        window.scrollTo({
-          top: firstSection.offsetTop,
-          behavior: 'smooth'
-        });
-      }
-    }, 600);
+    const firstSection = document.getElementById('video-production');
+    if (firstSection && isMobile) {
+      window.scrollTo({
+        top: firstSection.offsetTop,
+        behavior: 'smooth'
+      });
+    }
 
     sessionStorage.setItem('hasVisitedSite', 'true');
   }
