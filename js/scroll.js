@@ -29,7 +29,10 @@ window.addEventListener('load', () => {
 
 // Fonction pour désactiver / réactiver le scroll natif
 function disableScroll() {
-    document.body.style.overflow = 'hidden';
+    // ✅ Ne désactive le scroll natif que sur desktop
+    if (!isMobile()) {
+        document.body.style.overflow = 'hidden';
+    }
 }
 function enableScroll() {
     document.body.style.overflow = '';
@@ -58,41 +61,47 @@ window.addEventListener("wheel", (e) => {
 // ---------------------
 // 📱 GESTION DU TOUCH MOBILE
 // ---------------------
-let touchStartY = 0;
-let touchEndY = 0;
-let touchStartX = 0;
-let touchStartTime = 0;
+// ✅ Sur mobile (< 625px), on désactive le scroll sectionné
+// Le scroll natif est utilisé avec lazy loading des vidéos au scroll
+const isMobile = () => window.innerWidth <= 625;
 
-window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-    touchStartX = e.touches[0].clientX;
-    touchStartTime = Date.now();
-}, { passive: true });
+if (!isMobile()) {
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let touchStartX = 0;
+    let touchStartTime = 0;
 
-window.addEventListener('touchmove', (e) => {
-    if (isScrolling) e.preventDefault();
-    touchEndY = e.touches[0].clientY;
-}, { passive: false });
+    window.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        touchStartTime = Date.now();
+    }, { passive: true });
 
-window.addEventListener('touchend', (e) => {
-    // Bloque le scroll si le chargement initial n'est pas terminé
-    if (!isInitialLoadComplete || isScrolling || sections.length === 0) return;
-    
-    // Vérifie si le touch était sur un lien
-    const target = e.target;
-    if (target.closest('a')) {
-        return; // Ne fait rien si c'est un lien
-    }
-    
-    const deltaY = touchStartY - touchEndY;
-    const touchDuration = Date.now() - touchStartTime;
-    
-    // Ignore les petits swipes verticaux (réduit à 30px) et les touches très courtes
-    if (Math.abs(deltaY) < 30 || touchDuration < 50) return;
-    
-    if (deltaY > 0) scrollToSection(currentIndex + 1);
-    else scrollToSection(currentIndex - 1);
-});
+    window.addEventListener('touchmove', (e) => {
+        if (isScrolling) e.preventDefault();
+        touchEndY = e.touches[0].clientY;
+    }, { passive: false });
+
+    window.addEventListener('touchend', (e) => {
+        // Bloque le scroll si le chargement initial n'est pas terminé
+        if (!isInitialLoadComplete || isScrolling || sections.length === 0) return;
+        
+        // Vérifie si le touch était sur un lien
+        const target = e.target;
+        if (target.closest('a')) {
+            return; // Ne fait rien si c'est un lien
+        }
+        
+        const deltaY = touchStartY - touchEndY;
+        const touchDuration = Date.now() - touchStartTime;
+        
+        // Ignore les petits swipes verticaux (réduit à 30px) et les touches très courtes
+        if (Math.abs(deltaY) < 30 || touchDuration < 50) return;
+        
+        if (deltaY > 0) scrollToSection(currentIndex + 1);
+        else scrollToSection(currentIndex - 1);
+    });
+}
 
 // ---------------------
 // ⌨️ GESTION DU CLAVIER ORDINATEUR
@@ -240,6 +249,12 @@ window.addEventListener('DOMContentLoaded', () => {
     // ✅ Active le scroll immédiatement
     isInitialLoadComplete = true;
     console.log('✅ Scroll activé au DOMContentLoaded');
+    
+    // ✅ Sur mobile : active le lazy loading au scroll natif
+    if (isMobile()) {
+        enableScroll(); // Active le scroll natif
+        setupMobileScrollLazyLoad(); // Configure le lazy loading
+    }
 });
 
 // ---------------------
@@ -311,6 +326,33 @@ function unloadSectionVideos(section) {
     video.load();
     video.remove();
   });
+}
+
+// ✅ Fonction de lazy loading pour mobile avec scroll natif
+function setupMobileScrollLazyLoad() {
+    let loadedSections = new Set();
+    
+    // Charge immédiatement les vidéos des sections visibles
+    const checkVisibleSections = () => {
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible && !loadedSections.has(index)) {
+                loadedSections.add(index);
+                lazyLoadSectionVideos(section);
+                console.log(`✅ Section ${index} loaded (mobile scroll)`);
+            }
+        });
+    };
+    
+    // Vérifie au scroll
+    window.addEventListener('scroll', () => {
+        checkVisibleSections();
+    }, { passive: true });
+    
+    // Première vérification au chargement
+    checkVisibleSections();
 }
 
 window.addEventListener('pageshow', () => {
