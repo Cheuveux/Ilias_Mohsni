@@ -42,25 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const start = Date.now();
   let videoLoaded = false;
+  let checkAttempts = 0;
+  const maxAttempts = 30; // 3 secondes max (30 * 100ms)
 
   // Vérifie toutes les 100ms si la première vidéo est chargée
   const checkVideo = setInterval(() => {
-    const firstVideo = document.querySelector('.video-production .swiper-slide-active video, .video-production .swiper-slide video');
+    checkAttempts++;
+    const firstVideo = document.querySelector('.video-production .swiper-slide video, .video-production video');
     
-    if (firstVideo && firstVideo.readyState >= 3) { // HAVE_FUTURE_DATA ou plus
+    if ((firstVideo && firstVideo.readyState >= 2) || checkAttempts >= maxAttempts) {
       videoLoaded = true;
       clearInterval(checkVideo);
       hideLoader();
     }
   }, 100);
-
-  // Timeout de sécurité : masque le loader après 5s max même si vidéo pas chargée
-  setTimeout(() => {
-    if (!videoLoaded) {
-      clearInterval(checkVideo);
-      hideLoader();
-    }
-  }, 5000);
 
   function hideLoader() {
     const elapsed = Date.now() - start;
