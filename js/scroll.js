@@ -3,6 +3,8 @@ let sections = gsap.utils.toArray("section");
 let currentIndex = 0;
 let isScrolling = false;
 let initialScrollCaptured = false;
+let isInitialLoadComplete = false;
+let scrollTimeout = null;
 
 // Clone de la première section pour boucle infinie
 if (sections.length > 0) {
@@ -38,7 +40,8 @@ function enableScroll() {
 // ---------------------
 let lastWheelTime = 0;
 window.addEventListener("wheel", (e) => {
-    if (isScrolling || sections.length === 0) return;
+    // Bloque le scroll si le chargement initial n'est pas terminé
+    if (!isInitialLoadComplete || isScrolling || sections.length === 0) return;
     if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
 
     // Bloque les petits deltas du trackpad (< 15)
@@ -72,7 +75,8 @@ window.addEventListener('touchmove', (e) => {
 }, { passive: false });
 
 window.addEventListener('touchend', (e) => {
-    if (isScrolling || sections.length === 0) return;
+    // Bloque le scroll si le chargement initial n'est pas terminé
+    if (!isInitialLoadComplete || isScrolling || sections.length === 0) return;
     
     // Vérifie si le touch était sur un lien
     const target = e.target;
@@ -94,7 +98,8 @@ window.addEventListener('touchend', (e) => {
 // ⌨️ GESTION DU CLAVIER ORDINATEUR
 // ---------------------
 window.addEventListener('keydown', (e) => {
-    if (isScrolling || sections.length === 0) return;
+    // Bloque le scroll si le chargement initial n'est pas terminé
+    if (!isInitialLoadComplete || isScrolling || sections.length === 0) return;
     if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         scrollToSection(currentIndex + 1);
     } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
@@ -149,6 +154,14 @@ function scrollToSection(index) {
     if (isScrolling || sections.length === 0) return;
 
     isScrolling = true;
+    
+    // Sécurité : débloquer isScrolling après 2s maximum
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+        enableScroll();
+    }, 2000);
+    
     disableScroll();
     index = Math.max(0, Math.min(index, sections.length - 1));
 
@@ -181,6 +194,9 @@ function scrollToSection(index) {
         ease: "power2.out",
         overwrite: true,
         onComplete: () => {
+            // Clear le timeout de sécurité
+            if (scrollTimeout) clearTimeout(scrollTimeout);
+            
             animateSectionTitles(targetSection);
 
             // Si on est sur le clone (last section), on revient à la vraie première section
@@ -221,6 +237,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Fonction globale appelée par swiper.js quand le loader est caché
+window.enableScrollAfterLoad = function() {
+    isInitialLoadComplete = true;
+    console.log('✅ Scroll activé après chargement initial');
+};
+
 // ---------------------
 // 🎥 GESTION DES VIDÉOS EN FONCTION DE LA SECTION VISIBLE
 // ---------------------
@@ -237,7 +259,7 @@ function lazyLoadSectionVideos(section) {
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = "none";
+    video.preload = "metadata"; // Changé de "none" à "metadata" pour un chargement plus rapide
     video.className = isMobile ? 'format-bigo' : 'format-ordi';
     video.style.opacity = 0;
     container.appendChild(video);

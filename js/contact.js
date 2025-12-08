@@ -25,26 +25,27 @@ function type() {
 
   if (!isDeleting && charIndex < current.length) {
     charIndex++;
-    setTimeout(type, 100);
+    setTimeout(type, 30); // Plus rapide : 30ms au lieu de 50ms
   } else if (isDeleting && charIndex > 0) {
     if (!isHovered) { // ← ne supprime que si pas hover
       charIndex--;
     }
-    setTimeout(type, 40);
+    setTimeout(type, 20); // Plus rapide : 20ms au lieu de 40ms
   } else {
     if (!isDeleting) {
       isDeleting = true;
-      setTimeout(type, 1200);
+      // Pause de 3s après l'écriture du mail latin (index 0), sinon petite pause de 500ms
+      const pauseBeforeDelete = index === 0 ? 3000 : 500;
+      setTimeout(type, pauseBeforeDelete);
     } else {
       isDeleting = false;
       index = (index + 1) % alphabets.length;
 
-      const pauseTime = index === 0 ? 3000 : 0;
-      isPaused = true;
+      // Pas de pause supplémentaire entre les alphabets
       setTimeout(() => {
         isPaused = false;
         type();
-      }, 3000 + pauseTime);
+      }, 0);
     }
   }
 }

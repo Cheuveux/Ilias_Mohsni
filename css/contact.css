@@ -68,6 +68,8 @@ main {
   display: inline-block;
   font-family: monospace;
   letter-spacing: 1px;
+  min-width: 450px;
+  text-align: left;
 }
 
 .multi-script .char {
@@ -125,5 +127,9 @@ main {
     color: rgb(222, 221, 201);
     text-decoration: none;
     font-size: .8rem;
+  }
+  
+  .multi-script {
+    min-width: 250px;
   }
 }

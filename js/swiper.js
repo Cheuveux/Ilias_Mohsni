@@ -149,6 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
       loader.style.opacity = 0;
       setTimeout(() => {
         loader.style.display = 'none';
+        // ✅ Active le scroll après que le loader soit complètement caché
+        if (window.enableScrollAfterLoad) {
+          window.enableScrollAfterLoad();
+        }
       }, 600 + wait);
     });
   }
