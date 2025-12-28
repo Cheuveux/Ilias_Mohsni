@@ -202,7 +202,6 @@ html, body {
 
 
 section {
-  margin-bottom: 2rem;
   height: 100vh;
   scroll-snap-align: start;
   position: relative;
@@ -864,3 +863,50 @@ video::-webkit-media-controls-start-playback-button {
     margin-bottom: 1vh;
    }
   }
+
+/* ============================
+   SUBMENU MOBILE UNIQUEMENT
+   ============================ */
+.submenu-mobile {
+  display: none; /* Caché par défaut sur desktop */
+}
+
+@media screen and (max-width: 625px) {
+  .submenu-mobile {
+    display: block;
+    position: absolute;
+    top: 15%;
+    right: 2%;
+    z-index: 100;
+    padding: 0.8rem;
+  }
+
+  .submenu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .submenu-element a {
+    text-decoration: none;
+    color: rgb(222, 221, 201);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0.8rem;
+    display: block;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .submenu-element:hover a,
+  .submenu-element.active a {
+    border-color: rgb(235, 141, 0);
+    background: rgba(235, 141, 0, 0.15);
+    color: rgb(235, 141, 0);
+  }
+}
