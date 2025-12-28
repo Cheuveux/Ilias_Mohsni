@@ -875,7 +875,7 @@ video::-webkit-media-controls-start-playback-button {
   .submenu-mobile {
     display: block;
     position: absolute;
-    top: 15%;
+    top: 19%;
     right: 2%;
     z-index: 100;
     padding: 0.8rem;
@@ -887,16 +887,16 @@ video::-webkit-media-controls-start-playback-button {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.3rem;
   }
 
   .submenu-element a {
     text-decoration: none;
     color: rgb(222, 221, 201);
     font-size: 0.75rem;
-    font-weight: 400;
+    font-weight: 700;
     letter-spacing: 0.5px;
-    padding: 0.5rem 0.8rem;
+    padding: 0.2rem 0.8rem;
     display: block;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -905,8 +905,8 @@ video::-webkit-media-controls-start-playback-button {
 
   .submenu-element:hover a,
   .submenu-element.active a {
-    border-color: rgb(235, 141, 0);
+    border-color: rgb(228, 185, 120);
     background: rgba(235, 141, 0, 0.15);
-    color: rgb(235, 141, 0);
+    color: rgb(211, 139, 30);
   }
 }
