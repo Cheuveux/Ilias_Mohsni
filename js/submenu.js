@@ -13,19 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     subMenuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-
-            if (targetSection) {
-                // Scroll smooth natif sur mobile
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                // Si c'est une ancre (#...) ou une section du site, on bloque le comportement par défaut
+                // Sinon (ex: comingSoon.html), on laisse le lien s'ouvrir normalement
+                if (href && (href.startsWith('#') || href === 'index.html' || href === 'about.html' || href === 'contact.html')) {
+                    e.preventDefault();
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+                // Si href est autre chose (ex: comingSoon.html), on laisse le lien fonctionner normalement
+            });
     });
 });
