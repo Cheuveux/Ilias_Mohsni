@@ -542,6 +542,7 @@ video::-webkit-media-controls-start-playback-button {
   display: flex;
   max-width: 90%;
   justify-content: flex-end;
+  /* height: 100vh; */
 }
 .content-title.mobile-only {
   display: none;
@@ -893,7 +894,7 @@ video::-webkit-media-controls-start-playback-button {
    SUBMENU MOBILE UNIQUEMENT
    ============================ */
 .submenu-mobile {
-  display: none; /* Caché par défaut sur desktop */
+   display: none; /* Caché par défaut sur desktop  */
 }
 
 @media screen and (max-width: 625px) {
