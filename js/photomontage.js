@@ -7,35 +7,40 @@ function setupVideoLignesInteractions() {
     // Évite d'ajouter les listeners plusieurs fois
     if (video.dataset.interactionsSetup) return;
     video.dataset.interactionsSetup = 'true';
-    
+    video.dataset.activated = 'false'; // Ajout d'un état
+
     console.log('✅ Interactions ajoutées pour vidéo:', video.src);
 
-    // Desktop : play au hover
+    // Desktop : play au hover UNIQUEMENT après clic
     video.addEventListener('mouseenter', () => {
-      console.log('👁️ Mouseenter détecté sur vidéo');
-      video.play();
-      gsap.to(video, {
-        scale: 1.12,
-        rotateZ: 2,
-        opacity: 0.92,
-        duration: 0.6,
-        ease: "power2.out"
-      });
+      if (video.dataset.activated === 'true') {
+        video.play();
+        gsap.to(video, {
+          scale: 1.12,
+          rotateZ: 2,
+          opacity: 0.92,
+          duration: 0.6,
+          ease: "power2.out"
+        });
+      }
     });
     video.addEventListener('mouseleave', () => {
-      video.pause();
-      video.currentTime = 0;
-      gsap.to(video, {
-        scale: 1,
-        rotateZ: 0,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2.out"
-      });
+      if (video.dataset.activated === 'true') {
+        video.pause();
+        video.currentTime = 0;
+        gsap.to(video, {
+          scale: 1,
+          rotateZ: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        });
+      }
     });
 
-    // Mobile : play au clic
+    // Mobile & Desktop : play au clic (active le hover ensuite)
     video.addEventListener('click', () => {
+      video.dataset.activated = 'true';
       video.play();
       gsap.to(video, {
         scale: 1.08,
@@ -54,6 +59,9 @@ function setupVideoLignesInteractions() {
         });
       }, 1200);
     });
+
+    // Toujours en pause au départ
+    video.pause();
 
     // // Auto-play au scroll/visibilité (desktop ET mobile)
     // video.addEventListener('loadeddata', () => {
