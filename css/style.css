@@ -945,7 +945,7 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 /* règle générale pour les vidéos dans les slides */
-.swiper-slide > video {
+.swiper-slide .documentary .video-production video {
   display: block;
   width: auto;         /* évite 100vw qui force la largeur écran */
   max-width: 100% !important;     /* ne dépasse jamais le conteneur */
