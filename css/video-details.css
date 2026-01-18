@@ -61,7 +61,7 @@ header {
     display: block;
     object-fit: contain;
     width: 50vw;
-    height: 100%;
+    height: 100% !important;
     border-radius: 12px;
     background-color: #041402;
 }

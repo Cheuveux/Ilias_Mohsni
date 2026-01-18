@@ -245,11 +245,15 @@ header {
 .video-container > iframe {
     display: block;
     object-fit: contain;
-    width: 740px;
-    height: 360px;
+    width: 100%;
+    height: auto;
     border-radius: 12px;
     background-color: #041402;
 }
+iframe {
+    min-height: 250px;
+    height: 60vw;
+  }
 
 /* stylisation des boutons de controle de la video (a integrer dans style.css pour global a toutes les videos details*/
 .controls {
