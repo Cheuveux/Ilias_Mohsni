@@ -198,10 +198,11 @@ function scrollToSection(index) {
     const targetSection = sections[index];
     const targetPosition = targetSection.offsetTop;
 
-    // Lazy load vidéos de la section cible, retire celles des autres
+    // Lazy load vidéos et images de la section cible, retire celles des autres
     sections.forEach((section, i) => {
       if (i === index) {
         lazyLoadSectionVideos(section);
+        lazyLoadSectionImages(section);
       } else {
         unloadSectionVideos(section);
       }
@@ -229,6 +230,7 @@ function scrollToSection(index) {
                     animateSectionTitles(sections[0]);
                     // Lazy load la vraie première section
                     lazyLoadSectionVideos(sections[0]);
+                    lazyLoadSectionImages(sections[0]);
                 });
             } else {
                 currentIndex = index;
@@ -259,6 +261,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (sections[0]) {
           animateSectionTitles(sections[0]);
           lazyLoadSectionVideos(sections[0]);
+          lazyLoadSectionImages(sections[0]);
         }
     }
     
@@ -275,6 +278,7 @@ window.addEventListener('DOMContentLoaded', () => {
         slidesToLoad.forEach(slide => {
             if (!slide) return;
             
+            // Chargement des vidéos
             const videoContainers = slide.querySelectorAll('.video-container');
             videoContainers.forEach(videoContainer => {
                 if (videoContainer.querySelector('video')) return;
@@ -310,12 +314,59 @@ window.addEventListener('DOMContentLoaded', () => {
                     }, 100);
                 }
             });
+            
+            // Chargement des images
+            const imageContainers = slide.querySelectorAll('.img-lines');
+            imageContainers.forEach(imageContainer => {
+                if (imageContainer.querySelector('img')) return;
+                
+                const src = isMobileDevice ? imageContainer.dataset.srcMobile : imageContainer.dataset.srcDesktop;
+                if (src) {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.style.opacity = 0;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    img.style.display = 'block';
+                    
+                    imageContainer.appendChild(img);
+                    
+                    img.addEventListener('load', () => {
+                        gsap.to(img, { opacity: 1, duration: 0.5, ease: "power2.out" });
+                    }, { once: true });
+                }
+            });
         });
     });
     
     isInitialLoadComplete = true;
     console.log('✅ Toutes les premières vidéos chargées');
 });
+
+// ---------------------
+// 🖼️ GESTION DES IMAGES EN FONCTION DE LA SECTION VISIBLE
+// ---------------------
+function lazyLoadSectionImages(section) {
+  section.querySelectorAll('.img-lines').forEach(container => {
+    if (container.querySelector('img')) return;
+    const isMobile = window.innerWidth <= 625;
+    const src = isMobile ? container.dataset.srcMobile : container.dataset.srcDesktop;
+    if (!src) return;
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.opacity = 0;
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    
+    container.appendChild(img);
+    
+    img.addEventListener('load', () => {
+      gsap.to(img, { opacity: 1, duration: 0.5, ease: "power2.out" });
+    }, { once: true });
+  });
+}
 
 // ---------------------
 // 🎥 GESTION DES VIDÉOS EN FONCTION DE LA SECTION VISIBLE
@@ -413,10 +464,11 @@ window.addEventListener('pageshow', (e) => {
     });
     // ✅ Update currentIndex avec la bonne valeur
     currentIndex = visibleIndex;
-    // Réanime les titres et lazy-load les vidéos de la section visible
+    // Réanime les titres et lazy-load les vidéos et images de la section visible
     if (visibleSection) {
         hideSectionTitles(visibleSection);
         animateSectionTitles(visibleSection);
         lazyLoadSectionVideos(visibleSection);
+        lazyLoadSectionImages(visibleSection);
     }
 });

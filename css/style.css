@@ -288,6 +288,30 @@ video::-webkit-media-controls-start-playback-button {
   transform: translateZ(0);
 }
 
+ .brandt_mobile,
+ .brandt_container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center Important;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.brandt_mobile .img-lines {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.img-lines img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
 .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
@@ -665,6 +689,25 @@ video::-webkit-media-controls-start-playback-button {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  
+  /* ✅ Style pour les images sur mobile */
+  .img-lines {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+  }
+  
+  .img-lines img {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    object-fit: contain;
+    display: block;
   }
   
 
