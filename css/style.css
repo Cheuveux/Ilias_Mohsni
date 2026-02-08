@@ -308,6 +308,7 @@ video::-webkit-media-controls-start-playback-button {
 
 .img-lines img {
   width: 100%;
+  max-height: 28vh;
   height: auto;
   display: block;
   object-fit: contain;
