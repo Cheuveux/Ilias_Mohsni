@@ -230,16 +230,6 @@ section {
   left: 55%;
 }
 
-.swiper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  overflow: hidden;
-}
-
 .swiper-slide {
   width: 100vw;
   height: 100vh;
@@ -249,11 +239,30 @@ section {
   justify-content: center;
 }
 
-.swiper-slide > video {
-  width: 100vw;
-  height: 100vh;
-  display: block;
+.video-container {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
+
+/* ✅ Video must fit INSIDE container, never exceed it */
+.video-container > video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+
 
 .swiper-slide > video {
   pointer-events: none;
@@ -432,9 +441,6 @@ video::-webkit-media-controls-start-playback-button {
     width: 90px;
   }
 
-
-
-
   section {
     height: 100vh;
     scroll-snap-align: start;
@@ -482,14 +488,14 @@ video::-webkit-media-controls-start-playback-button {
     justify-content: center;
   }
 
-  .swiper-slide > video {
+  .video-container > video {
     width: auto;
     max-width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .swiper-slide > img {
+  .video-container > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -516,10 +522,7 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 
-/*VIDEO_PRODUCTION*/
-.video-production .swiper-slide > video {
-  object-fit: cover;
-}
+
 
 .video-production .format-bigo,
 .documentary .format-bigo {
@@ -541,10 +544,6 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 /*DOCUMENTARY*/
-
-.documentary .swiper-slide > video {
-  object-fit: contain;
-}
 .documentary .title-section h1 {
   left: 20%;
 }
@@ -931,22 +930,7 @@ video::-webkit-media-controls-start-playback-button {
   }
 }
 
-/* FIX: vidéos ne doivent pas dépasser leur conteneur */
-.video-container {
-  overflow: hidden; /* coupe ce qui déborde */
-  max-width: 100% !important;
-  max-height: 100%;
-}
 
-/* règle générale pour les vidéos dans les slides */
-.swiper-slide .documentary .video-production video {
-  display: block;
-  width: auto;         /* évite 100vw qui force la largeur écran */
-  max-width: 100% !important;     /* ne dépasse jamais le conteneur */
-  height: 100%;        /* remplit la hauteur du slide */
-  max-height: 100%;
-  object-fit: cover;   /* ou 'contain' si tu veux voir toute l'image */
-}
 
 /* cas spécifique lignes-brandt (desktop) : respecter le conteneur */
 .lignes-brandt .video-container.video-lignes video {
