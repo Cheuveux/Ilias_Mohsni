@@ -927,7 +927,7 @@ video::-webkit-media-controls-start-playback-button {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0rem;
   }
 
   .submenu-element a {
