@@ -1,3 +1,4 @@
+
 function removeDesktopBonusSlides() {
   // ✅ Utilise le même breakpoint que partout ailleurs (625px)
   if (window.innerWidth <= 625) {
@@ -15,28 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
     new Swiper(swiperEl, {
       direction: 'horizontal',
       loop: swiperEl.querySelectorAll('.swiper-slide').length > 1,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      simulateTouch: true,
+      grabCursosr: true, 
+      allowTouchMove: true,
       pagination: {
         el: swiperEl.querySelector('.swiper-pagination'),
         clickable: true,
         dynamicBullets: true,
         dynamicMainBullets: 3,
       },
-      scrollbar: {
-        el: swiperEl.querySelector('.swiper-scrollbar'),
-        draggable: true,
+      mousewheel: {
+        enabled: true,
+        forceToAxis: true,
+        sensitivity: 1,
+        releaseOnEdges: false,
+        thresholdDelta : 10, 
+        thresholdTime: 50,
       },
-      slidesPerView: 1,
-      spaceBetween: 20,
-      simulateTouch: true,
-      touchRatio: 2,
-      touchAngle: 45,
-      // ✅ Amélioration pour différencier scroll horizontal et vertical
-      threshold: 10,
-      resistance: true,
-      resistanceRatio: 0.85,
-      touchStartPreventDefault: false,
-      touchMoveStopPropagation: true,
-      allowTouchMove: true,
       keyboard: {
         enabled: true,
         onlyInViewport: true,
