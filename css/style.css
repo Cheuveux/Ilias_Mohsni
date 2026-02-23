@@ -538,6 +538,18 @@ video::-webkit-media-controls-start-playback-button {
     font-size: 1.7rem;
     font-weight: 800;
   }
+  .documentary .content-title {
+    z-index: 1000;
+    position: absolute;
+    bottom: 15%;
+    margin: 0rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: auto;
+    color: rgb(243, 247, 231);
+    font-size: 1.7rem;
+    font-weight: 800;
 }
 
 
@@ -927,7 +939,7 @@ video::-webkit-media-controls-start-playback-button {
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0rem;
+    gap: 03rem;
   }
 
   .submenu-element a {
