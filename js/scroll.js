@@ -301,7 +301,10 @@ window.addEventListener('DOMContentLoaded', () => {
                     video.className = isMobileDevice ? 'format-bigo' : 'format-ordi';
                     video.style.opacity = 0;
                     video.style.pointerEvents = 'none';
-                    
+                    video.style.width = "100%";
+                    video.style.height = "100%";
+                    video.style.objectFit = "contain";
+                    video.style.background = "#000"; 
                     videoContainer.appendChild(video);
                     
                     video.addEventListener('loadeddata', () => {
