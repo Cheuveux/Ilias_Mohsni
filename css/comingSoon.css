@@ -1,0 +1,35 @@
+
+body {
+	position: relative;
+	width: 100%;
+}
+footer {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 2%;
+}
+
+.footer_content {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+footer img {
+	width: 16px;
+	height: auto;
+}
+footer a {
+	text-decoration: none;
+}
+footer h2 
+{
+	color: rgb(222, 221, 201);
+	letter-spacing: 3px;
+	font-family: 'Andale Mono', monospace;
+	font-size: 12px;
+	border-bottom: rgb(222, 221, 201) dotted 1px;
+	font-weight: 0;
+}
