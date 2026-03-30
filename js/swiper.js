@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
       direction: 'horizontal',
       loop: swiperEl.querySelectorAll('.swiper-slide').length > 1,
       slidesPerView: 1,
+      navigation: true,
+      navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+      },
       spaceBetween: 0,
       simulateTouch: true,
       grabCursosr: true, 
