@@ -13,25 +13,33 @@ document.addEventListener('DOMContentLoaded', () => {
   removeDesktopBonusSlides();
 
   document.querySelectorAll('.swiper').forEach(swiperEl => {
+    // Defensive checks for navigation elements
+    const nextBtn = swiperEl.querySelector('.swiper-button-next');
+    const prevBtn = swiperEl.querySelector('.swiper-button-prev');
+    const paginationEl = swiperEl.querySelector('.swiper-pagination');
+    
+    // Only init swiper if it has slides
+    const slideCount = swiperEl.querySelectorAll('.swiper-slide').length;
+    if (slideCount === 0) return;
+    
     new Swiper(swiperEl, {
       direction: 'horizontal',
-      loop: swiperEl.querySelectorAll('.swiper-slide').length > 1,
+      loop: slideCount > 1,
       slidesPerView: 1,
-      navigation: true,
-      navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-      },
+      navigation: (nextBtn instanceof Element && prevBtn instanceof Element) ? {
+        nextEl: nextBtn,
+        prevEl: prevBtn,
+      } : false,
       spaceBetween: 0,
       simulateTouch: true,
       grabCursosr: true, 
       allowTouchMove: true,
-      pagination: {
-        el: swiperEl.querySelector('.swiper-pagination'),
+      pagination: (paginationEl instanceof Element) ? {
+        el: paginationEl,
         clickable: true,
         dynamicBullets: true,
         dynamicMainBullets: 3,
-      },
+      } : false,
       mousewheel: {
         enabled: true,
         forceToAxis: true,
