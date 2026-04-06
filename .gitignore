@@ -1,5 +1,8 @@
 #Pour l'instant on ignore les photos/videos pour alleger le repo pcq MH va devoir allonger des tals
 
+# Local folders
+docu/
+
 *.mp4
 *.mov
 *.avi
