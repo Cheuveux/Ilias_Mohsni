@@ -431,7 +431,6 @@ video::-webkit-media-controls-start-playback-button {
 
 @media screen and (max-width:625px)
 {
-
   .loader-name {
     font-size: 1.8rem;
     letter-spacing: 5px;
@@ -688,10 +687,12 @@ video::-webkit-media-controls-start-playback-button {
     box-sizing: border-box;
     z-index: 0;
   }
+
   .lignes-brandt .content-title {
     left: 5%;
     bottom: 7%;
   }
+
   .ordi-part1,
   .ordi-part2 {
     display: flex;
