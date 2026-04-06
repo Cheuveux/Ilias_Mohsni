@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Preconnect to critical third-party origins -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev">
-    
-    <link rel="stylesheet" href="../css/documentary.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-    <title>A Time Goes, An other comes</title>
-
-  
-</head>
-<body>
-
-   <header>
-
-      <div class="icone-retour">
-        <a href="../index.html#documentary">
-         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="100%" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
 <path fill="none" opacity="1.000000" stroke="none" 
 	d="
@@ -75,7 +53,7 @@ M137.963882,130.544128
 	C114.072250,144.274063 113.977028,143.937943 113.881805,143.601822 
 	C121.697647,139.390793 129.513489,135.179764 137.963882,130.544128 
 z"/>
-<path fill="rgb(222, 221, 201)" opacity="1.000000" stroke="none" 
+<path fill="#F5F5DC" opacity="1.000000" stroke="rgb(4,14,2)" stroke-width="8"
 	d="
 M137.646606,130.756439 
 	C129.513489,135.179764 121.697647,139.390793 113.881805,143.601822 
@@ -122,65 +100,4 @@ M137.646606,130.756439
 	C172.392258,108.712746 161.691864,115.503250 151.062485,122.391785 
 	C146.747452,125.188187 142.333054,127.831268 137.646606,130.756439 
 z"/>
-         </svg>
-        </a>
-      </div>
-   </header>
-
-<main>  
-    <div class="main-doc">
-         <div class="affiche-container">
-            <img class="affiche-doc" src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/affiche-doc/affiche-doc1.jpg" alt="">
-            <img class="affiche-doc" src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/affiche-doc/affiche-doc2.jpg" alt="">
-            <img class="affiche-doc" src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/affiche-doc/affiche-doc3.jpg" alt="">
-         </div>
-
-         <div class="swiper affiche-swiper">
-            <div class="swiper-wrapper">
-               <div class="swiper-slide">
-                  <img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/affiche-doc/affiche-doc1.jpg" alt="">
-               </div>
-
-               <div class="swiper-slide">
-                  <img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/affiche-doc/affiche-doc2.jpg" alt="">
-               </div>
-
-               <div class="swiper-slide">
-                  <img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/affiche-doc/affiche-doc3.jpg" alt="">
-               </div>
-            </div>
-
-            <!-- Flèches de navigation -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-
-         </div>
-
-         <div class="doc-description">
-            <p>This short documentary film presents the city of Hammam Lif in Tunisia from different perspectives.</p>
-
-            <p>Filmed in 2022, the images in this documentary convey the current atmosphere of the city. Focusing particularly on a group of friends and their living spaces, the documentary presents the current state of the city and includes interviews with people who remember its heyday. Through the various accounts of the inhabitants, we come to understand what may have caused these changes.</p>
-
-            <p>Located in the southern suburbs of the capital Tunis, Hammam Lif is a coastal town that was home to the Beys during the Tunisian monarchy and had a reputation as a bourgeois town popular with summer visitors until the 1980s.</p>
-
-         </div>
-	
-         <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/8-DutNhZBn0?si=iM2i2VicZu187-oZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-         </div>
-                   
-      </div> 
-</main>
-    
-
-
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script defer src="../js/back-button.js"></script>
-<script defer src="../js/documentary.js"></script>
-<script defer src="../js/videoControl.js"></script>
-</body>
-</html>
+</svg>
