@@ -84,15 +84,44 @@ header {
 
 
 .swiper-slide > img {
-  width: 850px;
-  height: 600px;
- 
-  
+   width: 850px;
+   height: 600px;  
    object-fit: cover;
-  display: block; /* au lieu de flex */
-  margin: 0 auto; /* centre horizontalement si nécessaire */
+   display: block; /* au lieu de flex */
+   margin: 0 auto; /* centre horizontalement si nécessaire */
 }
 
+/* Supprime l'icone par défaut */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: none !important;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  width: 98px !important;
+  height: 98px !important;
+  position: absolute;
+  top: 50%;
+  /* transform: translateY(-50%); */
+  z-index: 20;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+
+  cursor: pointer;
+}
+
+.swiper-button-prev {
+  margin-left: 3%;
+  background-image: url('../swiper_navigation.svg');
+
+}
+
+.swiper-button-next {
+  margin-right: 3%; 
+  transform: rotate(180deg);
+  background-image: url('../swiper_navigation.svg');
+}
 
 .lefted {
    position: absolute;

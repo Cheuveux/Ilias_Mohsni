@@ -603,22 +603,6 @@ video::-webkit-media-controls-start-playback-button {
     font-size: 1.7rem;
     font-weight: 800;
   }
-
-.swiper-button-next, .swiper-button-prev {
-  width: 42px !important;
-  height: 42px !important;
-  position: absolute;
-  top: 50%;
-  /* transform: translateY(-50%); */
-  z-index: 20;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  cursor: pointer;
-}
-
-
-
   .video-production .format-bigo,
   .documentary .format-bigo {
     display: none;
