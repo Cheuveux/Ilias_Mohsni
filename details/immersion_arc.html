@@ -9,6 +9,7 @@
 		<link rel="preconnect" href="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev">
 		
 		<link rel="stylesheet" href="../css/immersion_arc.css">
+		<link rel="stylesheet" href="../css/videoControl.css">
 		<link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 		<title>Immersion Arc</title>
 
@@ -140,9 +141,23 @@
 
 				</div>
 			
-				<div class="immersion-video-container">
-						<video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/3_VIDEO%20PRODUCTION/fromat-ordi/IMMERSION_FULL.mp4" controls loading="lazy">
+				<div class="video-container immersion-video-container">
+						<video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/3_VIDEO%20PRODUCTION/fromat-ordi/IMMERSION_FULL.mp4" loading="lazy">
 						</video>
+						<div class="controls">
+							<button id="playPause" class="control-btn">
+								<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/playBtn.svg" alt="Play" />
+							</button>
+							<span class="currentTime">0:00</span>
+							<input type="range" id="progressBar" class="progressBar" value="0" step="0.1">
+							<span class="timeTotal">0:00</span>
+							<button id="toggleMute" class="control-btn">
+								<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundBtn.svg" alt="Mute" />
+							</button>
+							<button id="fullscreen" class="control-btn">
+								<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/fullScreenBtn.svg" alt="Fullscreen" />
+							</button>
+						</div>
 				</div>
 			</div>
 		</main>

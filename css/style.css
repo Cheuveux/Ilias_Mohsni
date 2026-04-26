@@ -674,10 +674,6 @@ video::-webkit-media-controls-start-playback-button {
   object-fit: contain;
 }
 
-.angelica_montage {
-  object-fit: cover;
-}
-
 .lignes-brandt {
     display: flex;
     flex-direction: row;

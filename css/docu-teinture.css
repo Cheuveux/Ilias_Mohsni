@@ -66,20 +66,25 @@ header {
 	padding: 10vh 1rem 1rem 1rem;
     z-index: 100;
  }
-
-.teinture-description {
-	font-size: 1.2rem;
-	text-align: center;
+.teinture-description h1 {
+	width: 500px;
+	max-width: 90vw;
+}
+.teinture-description p{
+	font-size: 1rem;
+	text-align: start;
 	width: 700px;
 	max-width: 90vw;
-	margin: 3rem 0;
+	margin: 1.5rem 0;
 }
 
 .teinture-video {
-	width: 750px;
+	position: relative;
+	width: 950px;
 	max-width: 90%;
-	height: 520px;
-	max-height: 30vh;
+	height: 500px;
+	max-height: 70vh;
+	margin-bottom: 3rem;
 }
 
 .teinture-video > video {
@@ -96,7 +101,15 @@ header {
 	.main-doc-teinture {
 		padding: 5vh .3rem .3rem .3rem;
 	}
-	.teinture-description {
+	.teinture-description h1 {
+		margin-top: 4rem;
+		font-size: 1.5rem;
+	}
+	.teinture-description p{
 		font-size: .8rem;
+		margin: 1rem 0rem;
+	}
+	.teinture-video {
+		max-height: 40vh;
 	}
 }
