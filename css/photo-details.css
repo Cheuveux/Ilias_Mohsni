@@ -98,8 +98,8 @@ header {
 }
 
 .swiper-button-next, .swiper-button-prev {
-  width: 98px !important;
-  height: 98px !important;
+  width: 48px !important;
+  height: 48px !important;
   position: absolute;
   top: 50%;
   /* transform: translateY(-50%); */
