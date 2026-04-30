@@ -10,12 +10,12 @@ if (!prefersReduce) {
 
 	//Options à personnaliser
 	const opts = {
-		charSize: 14,
+		charSize: 18,
 		font:'14px "Courier New", monospace',
 		density: 0.08,
 		speedMin: 300,
 		speedMax: 900,
-		spawnInterval: 450,
+		spawnInterval: 350,
 		trailLength:35,
 		color: '#E8F0FF',
 		bgColor: 'rgba(0, 0, 0, 0)'
