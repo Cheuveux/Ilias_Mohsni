@@ -13,8 +13,8 @@ const timeTotal = document.querySelector(".timeTotal");
 
 
 // Chemins des icônes
-const playIcon = "https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/playBtn.svg";
-const pauseIcon = "https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/pauseBtn.svg";
+const playIcon = "../play.svg";
+const pauseIcon = "../pause.svg";
 const volumeOnIcon = "https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundBtn.svg";
 const volumeOffIcon = "https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundMuted.svg";
 const fullscreenIcon = "https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/fullScreenBtn.svg";

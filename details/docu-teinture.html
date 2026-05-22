@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev">
     
     <link rel="stylesheet" href="../css/docu-teinture.css">
+    <link rel="stylesheet" href="../css/videoControl.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
     <title>A Time Goes, An other comes</title>
 
@@ -130,30 +131,42 @@ z"/>
 <main>  
     <div class="main-doc-teinture">
          <div class="teinture-description">
-            <p>This short documentary film presents the city of Hammam Lif in Tunisia from different perspectives.</p>
+            <h1>Natural dyeing with Sakura flowers - Tokyo, April 2024</h1>
 
-            <p>Filmed in 2022, the images in this documentary convey the current atmosphere of the city. Focusing particularly on a group of friends and their living spaces, the documentary presents the current state of the city and includes interviews with people who remember its heyday. Through the various accounts of the inhabitants, we come to understand what may have caused these changes.</p>
+            <p>In residence in Tokyo in spring 2024, the arc+ team was welcomed into Yuzankobo's workshop. Over the course of a collaborative day, the studio introduced us to natural dyeing and allowed us to create four unique pieces : naturally dyed t-shirts using Sakura blossoms, harvested at the height of the season.</p>
 
-            <p>Located in the southern suburbs of the capital Tunis, Hammam Lif is a coastal town that was home to the Beys during the Tunisian monarchy and had a reputation as a bourgeois town popular with summer visitors until the 1980s.</p>
+            <p>Depending on the metal combined with the dye bath, four distinct shades of pink emerged, each singular and unrepeatable.</p>
 
+			<p>Workshop footage: Kevin Tuazon</p>
+			<p>Interview and editing: Ilias Mohsni</p>
          </div>
 	
-         <div class="teinture-video">
-            <video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/full_documentary/teinture_compressed.mp4" controls alt="" width="1080" height="920"></video>
-
+         <div class="video-container teinture-video">
+            <video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/2_DOCUMENTARY%20FILM/full_documentary/teinture_compressed.mp4" alt="" width="1080" height="920"></video>
+            <div class="controls">
+               <button id="playPause" class="control-btn">
+                  <img src="../play.svg" alt="Play" />
+               </button>
+               <span class="currentTime">0:00</span>
+               <input type="range" id="progressBar" class="progressBar" value="0" step="0.1">
+               <span class="timeTotal">0:00</span>
+               <button id="toggleMute" class="control-btn">
+                  <img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundBtn.svg" alt="Mute" />
+               </button>
+               <button id="fullscreen" class="control-btn">
+                  <img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/fullScreenBtn.svg" alt="Fullscreen" />
+               </button>
+            </div>
          </div>
                    
       </div> 
 </main>
-    
-
-
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script defer src="../js/back-button.js"></script>
-<script defer src="../js/documentary.js"></script>
-<script defer src="../js/videoControl.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+	<script defer src="../js/back-button.js"></script>
+	<script src="../js/video-details.js"></script>
+	<script defer src="../js/videoControl.js"></script>
 </body>
 </html>
