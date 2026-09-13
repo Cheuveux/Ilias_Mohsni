@@ -119,3 +119,77 @@ input[type="range"].progressBar.show-thumb::-webkit-slider-thumb {
     font-size: .7rem;
   }
 }
+
+/* SPE DOPEST RUNNER */
+
+/* Conteneur principal des deux vidéos */
+.double-vids {
+  display: flex;
+  gap: 20px; /* Espace entre les vidéos */
+  justify-content: center; /* Centre les vidéos horizontalement */
+}
+
+/* Conteneur de chaque vidéo */
+.video-container-runner {
+  min-width: 300px; /* Largeur minimale pour éviter que les vidéos soient trop étroites */
+  max-width: 600px; /* Largeur maximale pour éviter qu'elles ne soient trop larges */
+  height: 25vh;
+  margin: 0 auto; /* Centre la vidéo dans son conteneur */
+}
+
+/* Conteneur de la vidéo (pour la balise <video> ou .video-content-runner) */
+.video-content-runner video{
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Conteneur des contrôles */
+.controls-perso {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+/* Barre de progression */
+.progressBar {
+  flex: 1; /* Prend tout l'espace disponible */
+  height: 4px;
+  cursor: pointer;
+}
+
+/* Style des boutons de contrôle */
+.control-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.control-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Temps (currentTime et timeTotal) */
+.currentTime, .timeTotal {
+  font-size: 14px;
+  color: #fff;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Adaptation pour mobile */
+@media (max-width: 768px) {
+  .double-vids {
+    flex-direction: column; /* Affiche les vidéos en colonne sur mobile */
+    align-items: center;
+  }
+
+  .video-container-runner {
+    flex: 1 1 100%; /* Prend 100% de la largeur sur mobile */
+    max-width: 100%;
+    margin-bottom: 5rem;
+  }
+}

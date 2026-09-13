@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="../css/immersion_arc.css">
 		<link rel="stylesheet" href="../css/videoControl.css">
 		<link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-		<title>Immersion Arc</title>
+		<title>DOPEST RUNNER</title>
 
 	
 	</head>
@@ -130,43 +130,77 @@
 			
 			<div class="main-content">
 				<div class="description">
-					<h1> IMMERSION - ARC COLLECTIVE </h1>
-					<p class="location">Paris</p>
-					<p class="date">Avril 2024</p>
+					<h1> DOPEST RUNNER </h1>
+					<p class="location">Patmos, Grèce</p>
+					<p class="date">Juillet 2026</p>
 					<div class="main-description">
-						<p>In April 2024, the arc+ collective was invited to take over a space on the iconic Cat Street in Shibuya, Tokyo. On the upper floor of the boutique, a gallery was set up presenting works by the collective's members.</p>
-						<p>Within this space, an immersive room was created, plunging visitors into an everyday Parisian universe — one that moves away from the image of a very chic Paris, in which only a small part of the population actually lives. </p>
-						<p>Composed of objects, subway posters, and this video projected, the room offered an honest portrait of what it means to truly live in Paris. With most of the collective's members being from the city, it was important for them to share their daily reality, the world they inhabit, and their way of seeing things.</p>
+						<p>Ce projet documentaire suit la préparation d'un athlète suédois de haut niveau à l'entraînement, filmé sur l’île grecque de Patmos durant plusieurs jours de course quotidienne en montagne. Il se décline en deux vidéos distinctes : un format pub/sport, dynamique et orienté image de marque, et un format interview/portrait, centré sur le parcours et les motivations de l'athlète. </p>
+						<p>L'ensemble met en lumière sa routine d'entraînement et sa préparation en vue d'un marathon à venir en Suède.</p>
+						<p>Réalisé en totale autonomie (tournage et montage), ce projet est aussi une collaboration avec le club de course auquel appartient l'athlète, dans le cadre de la promotion de sa marque de vêtements.</p>
+					</div>
+					<div class="credit">
+						<p>Crédits</p>
+						<p>Interview: Walter Öst</p>
+						<p>Traduction: Nils Maurios</p>
+						<p>Vidéo: Ilias Mohsni</p>
 					</div>
 
 				</div>
 			
-				<div class="video-container immersion-video-container">
-						<video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/3_VIDEO%20PRODUCTION/fromat-ordi/IMMERSION%2BLOGO%2BTXT.mp4" loading="lazy">
-						</video>
-						<div class="controls">
-							<button id="playPause" class="control-btn">
-								<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/playBtn.svg" alt="Play" />
+				<div class="double-vids">
+					<!-- Première vidéo -->
+					<div class="video-container-runner">
+						<h1> PART 1 - ADVERTISSING </h1>
+						<div class="video-content-runner">
+							<video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/3_VIDEO%20PRODUCTION/fromat-ordi/dopest_runner_part1_ordi.mp4"></video>
+						</div>
+						<div class="controls-perso">
+							<button id="playPause_1" class="control-btn">
+							<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/playBtn.svg" alt="Play" />
 							</button>
-							<span class="currentTime">0:00</span>
-							<input type="range" id="progressBar" class="progressBar" value="0" step="0.1">
-							<span class="timeTotal">0:00</span>
-							<button id="toggleMute" class="control-btn">
-								<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundBtn.svg" alt="Mute" />
+							<span class="currentTime_1">0:00</span>
+							<input type="range" id="progressBar_1" class="progressBar" value="0" step="0.1">
+							<span class="timeTotal_1">0:00</span>
+							<button id="toggleMute_1" class="control-btn">
+							<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundBtn.svg" alt="Mute" />
 							</button>
-							<button id="fullscreen" class="control-btn">
-								<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/fullScreenBtn.svg" alt="Fullscreen" />
+							<button id="fullscreen_1" class="control-btn">
+							<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/fullScreenBtn.svg" alt="Fullscreen" />
 							</button>
 						</div>
+					</div>
+					
+					<!-- Deuxième vidéo -->
+					<div class="video-container-runner">
+							<h1> PART 2 - INTERVIEW </h1>
+						<div class="video-content-runner">
+							<video src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/3_VIDEO%20PRODUCTION/fromat-ordi/dopest_runner_part2_ordi.mp4">
+							</video>
+						</div>
+						<div class="controls-perso">
+							<button id="playPause_2" class="control-btn">
+							<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/playBtn.svg" alt="Play" />
+							</button>
+							<span class="currentTime_2">0:00</span>
+							<input type="range" id="progressBar_2" class="progressBar" value="0" step="0.1">
+							<span class="timeTotal_2">0:00</span>
+							<button id="toggleMute_2" class="control-btn">
+							<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/soundBtn.svg" alt="Mute" />
+							</button>
+							<button id="fullscreen_2" class="control-btn">
+							<img src="https://pub-a10275f333c642cb944fe34bf2332caa.r2.dev/icons/fullScreenBtn.svg" alt="Fullscreen" />
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</main>
+	</main>
 
 		<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 		<script src="../js/back-button.js"></script>
-		<script src="../js/video-details.js"></script>
 		<script src="../js/videoControl.js"></script>
+		<script src="../js/video-details.js"></script>
 	</body>
 </html>
