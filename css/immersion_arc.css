@@ -71,6 +71,12 @@ header {
   flex-direction: column;
 }
 
+.credit {
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-align: end;
+}
+
 .main-description p {
   font-size: 1.2rem;
 }
