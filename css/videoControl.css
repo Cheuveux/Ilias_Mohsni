@@ -137,10 +137,38 @@ input[type="range"].progressBar.show-thumb::-webkit-slider-thumb {
   margin: 0 auto; /* Centre la vidéo dans son conteneur */
 }
 
+.video-container-runner:fullscreen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  display: block;
+  background: #000;
+}
+
+.video-container-runner:fullscreen > h1 {
+  display: none;
+}
+
 /* Conteneur de la vidéo (pour la balise <video> ou .video-content-runner) */
 .video-content-runner video{
   width: 100%;
   margin-bottom: 5px;
+}
+
+.video-container-runner:fullscreen .video-content-runner {
+  position: absolute;
+  inset: 0;
+}
+
+.video-container-runner:fullscreen .video-content-runner video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0;
+  object-fit: cover;
 }
 
 /* Conteneur des contrôles */
@@ -150,6 +178,17 @@ input[type="range"].progressBar.show-thumb::-webkit-slider-thumb {
   align-items: center;
   gap: 10px;
   padding: 10px 0;
+}
+
+.video-container-runner:fullscreen .controls-perso {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 20px;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
 }
 
 /* Barre de progression */
