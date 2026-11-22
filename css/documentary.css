@@ -391,3 +391,9 @@ input[type="range"].progressBar {
   font-size: .7rem;
 }
 }
+
+.doc-preambule {
+  text-align: end;
+  letter-spacing: 2px;
+  font-weight: 700;
+}

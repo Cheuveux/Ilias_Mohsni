@@ -112,6 +112,11 @@ header {
   .main-description p {
     font-size: .8rem;
   }
+  .credit {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-align: end;
+  }
   .immersion-video-container {
     max-width: 100%;
     width: 100%;

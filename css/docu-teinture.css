@@ -113,3 +113,11 @@ header {
 		max-height: 40vh;
 	}
 }
+
+.teinture-credit {
+	text-align: end;
+	width: 50%;
+	margin: 1.5rem 0rem 1.5rem 0;
+	letter-spacing: 2px;
+	font-weight: 600;
+}
